@@ -31,6 +31,7 @@ p/s: На данный момент редакция ограничена 600 г
 Погуглите, статей в интернете много, например вот некоторые из них (Последние 2 самые полезные, рекомендую):
 - https://www.dataschool.io/how-to-contribute-on-github/
 - https://microsoft.github.io/workshop-library/short/intro-github-dev/
+- https://www.youtube.com/watch?v=hyUBMmL0WtA
 - https://gprivate.com/617ak
 - https://gprivate.com/617ao
 
