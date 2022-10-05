@@ -104,6 +104,10 @@ p/s: На данный момент редакция ограничена 600 г
 - https://mts-vhod.ru/kak-pishetsya-diapazon-czifr-cherez-tire-ili-defis/
 
 
+### Карта все Путей/Последовательностей
+- [EN] https://lordofthemysteries.fandom.com/wiki/Pathways
+- [ZH] https://lordofthemysteries.fandom.com/zh/wiki/%E6%AD%8C%E9%A2%82%E8%80%85%E9%80%94%E5%BE%84#%E5%BA%8F%E5%88%979_-_%E6%AD%8C%E9%A2%82%E8%80%85
+
 ### Ссылки на другие сайты с этой книгой
 
 - https://ranobes.com/ranobe/134618-lord-of-the-mysteries.html (Вроде полный перевод)
