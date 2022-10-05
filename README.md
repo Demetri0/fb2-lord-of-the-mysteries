@@ -48,15 +48,15 @@ p/s: На данный момент редакция ограничена 600 г
 
 ## Специальные символы
 
-| Symbol | UTF-16 |  HTML   | Title    | Usage |
-|--------|--------|---------|----------|-------|
-|    —   | U+2014 | &mdash; | EM DASH  | диалоги, разделение информации на предложения |
-|    –   | U+2013 | &ndash; | EN DASH  | диапазон значений (например: 3–5) |
-|    …   | U+2026 | &mldr;  | Ellipsis | Многоточие |
-|    «   | U+00AB | &laquo; | Left-Pointing Double Angle Quotation Mark | мысли персонажа |
-|    »   | U+00BB | &raquo; | Right-Pointing Double Angle Quotation Mark | мысли персонажа |
-|    “	 | U+201C | &ldquo; | LEFT DOUBLE QUOTATION MARK | Значения в кавычках и прочее |
-|    ”	 | U+201D | &rdquo; | RIGHT DOUBLE QUOTATION MARK | Значения в кавычках и прочее |
+| Symbol |   UTF  | Title    | Usage |
+|--------|--------|----------|-------|
+|    —   | U+2014 | EM DASH  | диалоги, разделение информации на предложения |
+|    –   | U+2013 | EN DASH  | диапазон значений (например: 3–5) |
+|    …   | U+2026 | Ellipsis | Многоточие |
+|    «   | U+00AB | Left-Pointing Double Angle Quotation Mark | мысли персонажа |
+|    »   | U+00BB | Right-Pointing Double Angle Quotation Mark | мысли персонажа |
+|    “	 | U+201C | LEFT DOUBLE QUOTATION MARK | Значения в кавычках и прочее |
+|    ”	 | U+201D | RIGHT DOUBLE QUOTATION MARK | Значения в кавычках и прочее |
 
 ## Форматирование:
 ### Заголовки разделов:
