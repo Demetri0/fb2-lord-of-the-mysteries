@@ -140,6 +140,14 @@ p/s: На данный момент редакция ограничена 600 г
 - [ZH] https://lordofthemysteries.fandom.com/zh/wiki/%E9%9D%9E%E5%87%A1%E9%80%94%E5%BE%84
 - [ZH] https://lordofthemysteries.fandom.com/zh/wiki/Category:%E9%9D%9E%E5%87%A1%E9%80%94%E5%BE%84
 
+### Тома
+- Том 1: 1 - 213
+- Том 2: 214 - 482
+- Том 3: 483 - 733
+- Том 4: 734(Return) - 948(a gift, or a curse)
+- Том 5: 949(Visiting) - 1153(Dash)
+- Том 6: 1154(Fraud) - 1270(Light) ?
+
 ### Ссылки на другие сайты с этой книгой
 
 - https://ranobes.com/ranobe/134618-lord-of-the-mysteries.html (Вроде полный перевод)
