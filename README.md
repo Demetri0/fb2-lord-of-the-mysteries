@@ -154,6 +154,12 @@ p/s: На данный момент редакция ограничена 600 г
 - [ZH] https://lordofthemysteries.fandom.com/zh/wiki/%E9%9D%9E%E5%87%A1%E9%80%94%E5%BE%84
 - [ZH] https://lordofthemysteries.fandom.com/zh/wiki/Category:%E9%9D%9E%E5%87%A1%E9%80%94%E5%BE%84
 
+### Другая информация:
+- https://lotm.carrd.co/#info
+- https://www.youtube.com/channel/UCtKk-ZKpdbuxdT_7s7CdGng
+- https://ranobes.net/lord-of-the-mysteries-133485/186599.html
+- https://ranobes.net/lord-of-the-mysteries-133485/186600.html
+
 ### Тома
 - Том 1: 1 - 213
 - Том 2: 214 - 482
