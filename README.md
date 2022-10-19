@@ -160,14 +160,6 @@ p/s: На данный момент редакция ограничена 600 г
 - https://ranobes.net/lord-of-the-mysteries-133485/186599.html
 - https://ranobes.net/lord-of-the-mysteries-133485/186600.html
 
-### Тома
-- Том 1: 1 - 213
-- Том 2: 214 - 482
-- Том 3: 483 - 733
-- Том 4: 734(Return) - 948(a gift, or a curse)
-- Том 5: 949(Visiting) - 1153(Dash)
-- Том 6: 1154(Fraud) - 1270(Light) ?
-
 ### Ссылки на другие сайты с этой книгой
 
 - https://ranobes.com/ranobe/134618-lord-of-the-mysteries.html (Вроде полный перевод)
