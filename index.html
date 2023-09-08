@@ -3,14 +3,93 @@
   <head>
     <title>Lord of the Mysteries</title>
     <meta charset="utf-8" />
+    <style>
+      :root {
+        --foreground-color: rgba(255,255,255, 0.75);
+        --divider: rgba(255,255,255, 0.05);
+      }
+      html, body {
+        margin: 0;
+        height: 100%;
+        color: var(--foreground-color);
+        font-family: sans-serif;
+      }
+      video {
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: -1;
+        min-width: 100%;
+        min-height: 100%;
+        object-fit: contain;
+        background-position: center;
+      }
+      .wrapper {
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        background-image: linear-gradient(to top, black, transparent);
+      }
+      .content {
+        margin: 0 auto;
+        max-width: 100%;
+        width: 640px;
+      }
+      h1 {
+        text-align: center;
+      }
+      hr {
+        border: 0;
+        border-bottom: 1px solid var(--divider);
+      }
+      .btn {
+        --size: 36px;
+        display: inline-block;
+        width: 128px;
+        height: var(--size);
+        line-height: var(--size);
+        text-align: center;
+        border: 1px solid var(--divider);
+        border-radius: 3px;
+        color: var(--foreground-color);
+        transition: background 0.15s;
+        text-decoration: none;
+      }
+      .btn:hover,
+      .btn:focus {
+        background-color: rgba(255,255,255, 0.15);
+      }
+      .btn:active {
+        background-color: rgba(255,255,255, 0.1);
+      }
+      .btn-block {
+        display: flex;
+        justify-content: center;
+        margin-top: 32px;
+      }
+    </style>
   </head>
   <body>
-    <h1>Lord of the Mysteries</h1>
-    <p>Данный проект осуществляет редакцию книги Повелитель Тайн на русском языке.</p>
-    <hr />
-    <p>Я не являюсь ни автором книги, ни автором перевода, все ресурсы получены из открытых источников.
-    Этот проект не приследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
-    <hr />
-    <a href="./Lord Of The Mysteries.fb2">fb2</a>
+    <video playsinline autoplay muted loop poster="./assets/poster.webp">
+      <source src="./assets/bg.webm" type="video/webm" />
+    </video>
+
+    <div class="wrapper">
+      <div class="content">
+        <h1>Lord of the Mysteries</h1>
+        <p>Данный проект осуществляет редакцию книги Повелитель Тайн на русском языке.</p>
+
+        <hr />
+
+        <p>Я не являюсь ни автором книги, ни автором перевода, все ресурсы получены из открытых источников.
+        Этот проект не приследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
+
+        <div class="btn-block">
+          <a class="btn" href="./Lord Of The Mysteries.fb2">fb2</a>
+        </div>
+      </div>
+    </div>
   </body>
 </html>
