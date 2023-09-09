@@ -7,26 +7,29 @@
     <style>
       :root {
         --foreground-color: rgba(255,255,255, 0.75);
-        --divider: rgba(255,255,255, 0.05);
+        --divider: rgba(255,255,255, 0.075);
       }
       html, body {
         margin: 0;
         height: 100%;
         color: var(--foreground-color);
         font-family: sans-serif;
+        background-color: #242625;
       }
       video {
         position: fixed;
         top: 50%;
         left: 50%;
         transform: translate(-50%, -50%);
-        z-index: -1;
+        z-index: 0;
         min-width: 100%;
         min-height: 100%;
         object-fit: contain;
         background-position: center;
       }
       .wrapper {
+        position: relative;
+        z-index: 10;
         height: 100%;
         display: flex;
         justify-content: center;
@@ -58,6 +61,7 @@
         color: var(--foreground-color);
         transition: background 0.15s;
         text-decoration: none;
+        background-color: rgba(255,255,255,0.025);
       }
       .btn:hover,
       .btn:focus {
@@ -75,6 +79,7 @@
   </head>
   <body>
     <video playsinline autoplay muted loop poster="./assets/poster.webp">
+      <source src="./assets/bg.mp4" type="video/mp4" />
       <source src="./assets/bg.webm" type="video/webm" />
     </video>
 
@@ -89,7 +94,7 @@
         Этот проект не приследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
 
         <div class="btn-block">
-          <a class="btn" href="./Lord Of The Mysteries.fb2">fb2</a>
+          <a class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">fb2</a>
         </div>
       </div>
     </div>
