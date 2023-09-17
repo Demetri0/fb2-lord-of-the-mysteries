@@ -8,6 +8,18 @@
       :root {
         --foreground-color: rgba(255,255,255, 0.75);
         --divider: rgba(255,255,255, 0.075);
+        --border-radius: 3px;
+
+        --progress-total: 1432;
+        /*
+        --progress-begin-start: 0;
+        --progress-begin-finish: 110;
+        --progress-final-start: 576;
+        --progress-final-finish: 1384;
+        */
+
+        --progress-color-ready: rgba(205,255,205, 0.35);
+        --progress-color-incomplete: rgba(255,255,255, 0.15);
       }
       html, body {
         margin: 0;
@@ -57,7 +69,7 @@
         line-height: var(--size);
         text-align: center;
         border: 1px solid var(--divider);
-        border-radius: 3px;
+        border-radius: var(--border-radius);
         color: var(--foreground-color);
         transition: background 0.15s;
         text-decoration: none;
@@ -74,6 +86,45 @@
         display: flex;
         justify-content: center;
         margin-top: 32px;
+      }
+    </style>
+    <style>
+      .progress {
+        display: none;
+      }
+      .progress :first-child {
+        border-start-start-radius: var(--border-radius);
+        border-end-start-radius: var(--border-radius);
+      }
+      .progress :last-child {
+        border-end-end-radius: var(--border-radius);
+        border-start-end-radius: var(--border-radius);
+      }
+      .progress__item {
+        display: inline-flex;
+        justify-content: space-between;
+        align-items: center;
+        height: 16px;
+        font-size: 10px;
+        background-color: var(--progress-color-incomplete);
+      }
+      .progress__item span {
+        height: 1em;
+        padding-inline: 3px;
+      }
+      .progress__item--tick1 {
+        width: calc((var(--progress-begin-finish) - var(--progress-begin-start)) / var(--progress-total) * 100%);
+        background-color: var(--progress-color-ready);
+      }
+      .progress__item--tick2 {
+        flex-grow: 1
+      }
+      .progress__item--tick3 {
+        width: calc((var(--progress-final-finish) - var(--progress-final-start)) / var(--progress-total) * 100%);
+        background-color: var(--progress-color-ready);
+      }
+      .progress__item--tick4 {
+        width: calc((var(--progress-total) - var(--progress-final-finish)) / var(--progress-total) * 100%);
       }
     </style>
   </head>
@@ -95,7 +146,19 @@
 
         <hr>
 
-        <p><strong>Текущий прогресс:</strong> Главы 1–110, 576–1384 (Суммарно ≈64%)</p>
+        <p><strong>Текущий прогресс:</strong> ≈64% (Главы:
+          <output id="progress-begin-start">1</output>–<output id="progress-begin-finish">110</output>,
+          <output id="progress-final-start">576</output>–<output id="progress-final-finish">1384</output>)</p>
+
+        <div class="progress">
+          <span class="progress__item progress__item--tick1"></span>
+          <span class="progress__item progress__item--tick2"><span id="output-progress-begin-finish"></span></span>
+          <span class="progress__item progress__item--tick3">
+            <span id="output-progress-final-start"></span>
+            <span id="output-progress-final-finish"></span>
+          </span>
+          <span class="progress__item progress__item--tick4"></span>
+        </div>
 
         <p><em>⚠ На данном этапе, далеко не все имена и названия приведены в норму,
         финальная их редакция будет только ближе к концу, на 99%</em></p>
@@ -105,5 +168,25 @@
         </div>
       </div>
     </div>
+    <script>
+      (function(){
+        const progressBeginStart = document.getElementById('progress-begin-start').textContent;
+        document.documentElement.style.setProperty('--progress-begin-start', progressBeginStart);
+
+        const progressBeginFinish = document.getElementById('progress-begin-finish').textContent;
+        document.documentElement.style.setProperty('--progress-begin-finish', progressBeginFinish);
+        document.getElementById('output-progress-begin-finish').textContent = progressBeginFinish;
+
+        const progressFinalStart = document.getElementById('progress-final-start').textContent;
+        document.documentElement.style.setProperty('--progress-final-start', progressFinalStart);
+        document.getElementById('output-progress-final-start').textContent = progressFinalStart;
+
+        const progressFinalFinish = document.getElementById('progress-final-finish').textContent;
+        document.documentElement.style.setProperty('--progress-final-finish', progressFinalFinish);
+        document.getElementById('output-progress-final-finish').textContent = progressFinalFinish;
+
+        document.querySelector('.progress').style.display = 'flex';
+      })()
+    </script>
   </body>
 </html>
