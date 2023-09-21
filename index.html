@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="ru">
   <head>
     <title>Lord of the Mysteries</title>
     <meta charset="utf-8" />
@@ -92,11 +92,14 @@
       .progress {
         display: none;
       }
-      .progress :first-child {
+      .progress__line {
+        display: flex;
+      }
+      .progress__line :first-child {
         border-start-start-radius: var(--border-radius);
         border-end-start-radius: var(--border-radius);
       }
-      .progress :last-child {
+      .progress__line :last-child {
         border-end-end-radius: var(--border-radius);
         border-start-end-radius: var(--border-radius);
       }
@@ -126,6 +129,50 @@
       .progress__item--tick4 {
         width: calc((var(--progress-total) - var(--progress-final-finish)) / var(--progress-total) * 100%);
       }
+
+      .progress__chapters {
+        display: flex;
+        align-items: center;
+        font-size: 9px;
+      }
+      @media (max-width: 550px) {
+        .progress__chapters {
+          display: none;
+        }
+      }
+      .progress__chapter {
+        box-sizing: border-box;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        border-left: 1px solid var(--divider);
+        height: 16px;
+      }
+      .progress__chapter--ch1 {
+        width: calc(214 / var(--progress-total) * 100%);
+        border-left: 0;
+      }
+      .progress__chapter--ch2 {
+        width: calc((483 - 214) / var(--progress-total) * 100%);
+      }
+      .progress__chapter--ch3 {
+        width: calc((773 - 483) / var(--progress-total) * 100%);
+      }
+      .progress__chapter--ch4 {
+        width: calc((947 - 773) / var(--progress-total) * 100%);
+      }
+      .progress__chapter--ch5 {
+        width: calc((1151 - 947) / var(--progress-total) * 100%);
+      }
+      .progress__chapter--ch6 {
+        width: calc((1267 - 1151) / var(--progress-total) * 100%);
+      }
+      .progress__chapter--ch7 {
+        width: calc((1354 - 1267) / var(--progress-total) * 100%);
+      }
+      .progress__chapter--ch8 {
+        width: calc((var(--progress-total) - 1354) / var(--progress-total) * 100%);
+      }
     </style>
   </head>
   <body>
@@ -146,18 +193,32 @@
 
         <hr>
 
-        <p><strong>Текущий прогресс:</strong> ≈64% (Главы:
+        <p><strong>Текущий прогресс:</strong> ≈65% (Главы:
           <output id="progress-begin-start">1</output>–<output id="progress-begin-finish">125</output>,
           <output id="progress-final-start">576</output>–<output id="progress-final-finish">1384</output>)</p>
 
         <div class="progress">
-          <span class="progress__item progress__item--tick1"></span>
-          <span class="progress__item progress__item--tick2"><span id="output-progress-begin-finish"></span></span>
-          <span class="progress__item progress__item--tick3">
-            <span id="output-progress-final-start"></span>
-            <span id="output-progress-final-finish"></span>
-          </span>
-          <span class="progress__item progress__item--tick4"></span>
+          <div class="progress__line">
+            <span class="progress__item progress__item--tick1"></span>
+            <span class="progress__item progress__item--tick2">
+              <span id="output-progress-begin-finish"></span>
+            </span>
+            <span class="progress__item progress__item--tick3">
+              <span id="output-progress-final-start"></span>
+              <span id="output-progress-final-finish"></span>
+            </span>
+            <span class="progress__item progress__item--tick4"></span>
+          </div>
+          <div class="progress__chapters">
+            <span class="progress__chapter progress__chapter--ch1">Том 1</span>
+            <span class="progress__chapter progress__chapter--ch2">Том 2</span>
+            <span class="progress__chapter progress__chapter--ch3">Том 3</span>
+            <span class="progress__chapter progress__chapter--ch4">Том 4</span>
+            <span class="progress__chapter progress__chapter--ch5">Том 5</span>
+            <span class="progress__chapter progress__chapter--ch6">Том 6</span>
+            <span class="progress__chapter progress__chapter--ch7">Том 7</span>
+            <span class="progress__chapter progress__chapter--ch8">Том 8</span>
+          </div>
         </div>
 
         <p><em>⚠ На данном этапе, далеко не все имена и названия приведены в норму,
@@ -185,7 +246,7 @@
         document.documentElement.style.setProperty('--progress-final-finish', progressFinalFinish);
         document.getElementById('output-progress-final-finish').textContent = progressFinalFinish;
 
-        document.querySelector('.progress').style.display = 'flex';
+        document.querySelector('.progress').style.display = 'block';
       })()
     </script>
   </body>
