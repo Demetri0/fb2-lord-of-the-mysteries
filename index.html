@@ -11,12 +11,6 @@
         --border-radius: 3px;
 
         --progress-total: 1432;
-        /*
-        --progress-begin-start: 0;
-        --progress-begin-finish: 110;
-        --progress-final-start: 576;
-        --progress-final-finish: 1384;
-        */
 
         --progress-color-ready: rgba(205,255,205, 0.35);
         --progress-color-incomplete: rgba(255,255,255, 0.15);
@@ -39,20 +33,31 @@
         object-fit: contain;
         background-position: center;
       }
+      .overlay {
+        position: fixed;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        z-index: 1;
+        background-image: linear-gradient(to top, black, transparent);
+      }
       .wrapper {
         position: relative;
         z-index: 10;
-        height: 100%;
+        overflow: hidden;
+      }
+      .firstScreen {
         display: flex;
         justify-content: center;
         align-items: center;
-        background-image: linear-gradient(to top, black, transparent);
+        min-height: 100vh;
       }
       .content {
         margin: 0 auto;
         max-width: 100%;
         width: 640px;
-        padding: 0 16px;
+        padding: 32px 16px;
       }
       h1 {
         text-align: center;
@@ -180,54 +185,59 @@
       <source src="./assets/bg.mp4" type="video/mp4" />
       <source src="./assets/bg.webm" type="video/webm" />
     </video>
+    <div class="overlay"></div>
 
     <div class="wrapper">
-      <div class="content">
-        <h1>Lord of the Mysteries</h1>
-        <p>Данный проект осуществляет редакцию книги Повелитель Тайн на русском языке.</p>
+      <div class="firstScreen">
+        <div class="content">
+          <h1>Lord of the Mysteries</h1>
+          <p>Данный проект осуществляет редакцию книги Повелитель Тайн на русском языке.</p>
 
-        <hr />
+          <hr />
 
-        <p>Я не являюсь ни автором книги, ни автором перевода, все ресурсы получены из открытых источников.
-        Этот проект не преследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
+          <p>Я не являюсь ни автором книги, ни автором перевода, все ресурсы получены из открытых источников.
+          Этот проект не преследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
 
-        <hr>
+          <hr>
 
-        <p><strong>Текущий прогресс:</strong> ≈65% (Главы:
-          <output id="progress-begin-start">1</output>–<output id="progress-begin-finish">140</output>,
-          <output id="progress-final-start">576</output>–<output id="progress-final-finish">1384</output>)</p>
+          <p><strong>Текущий прогресс:</strong> ≈65% (Главы:
+            <output id="progress-begin-start">1</output>–<output id="progress-begin-finish">140</output>,
+            <output id="progress-final-start">576</output>–<output id="progress-final-finish">1384</output>)</p>
 
-        <div class="progress">
-          <div class="progress__line">
-            <span class="progress__item progress__item--tick1"></span>
-            <span class="progress__item progress__item--tick2">
-              <span id="output-progress-begin-finish"></span>
-            </span>
-            <span class="progress__item progress__item--tick3">
-              <span id="output-progress-final-start"></span>
-              <span id="output-progress-final-finish"></span>
-            </span>
-            <span class="progress__item progress__item--tick4"></span>
+          <div class="progress">
+            <div class="progress__line">
+              <span class="progress__item progress__item--tick1"></span>
+              <span class="progress__item progress__item--tick2">
+                <span id="output-progress-begin-finish"></span>
+              </span>
+              <span class="progress__item progress__item--tick3">
+                <span id="output-progress-final-start"></span>
+                <span id="output-progress-final-finish"></span>
+              </span>
+              <span class="progress__item progress__item--tick4"></span>
+            </div>
+            <div class="progress__chapters">
+              <span class="progress__chapter progress__chapter--ch1">Том 1</span>
+              <span class="progress__chapter progress__chapter--ch2">Том 2</span>
+              <span class="progress__chapter progress__chapter--ch3">Том 3</span>
+              <span class="progress__chapter progress__chapter--ch4">Том 4</span>
+              <span class="progress__chapter progress__chapter--ch5">Том 5</span>
+              <span class="progress__chapter progress__chapter--ch6">Том 6</span>
+              <span class="progress__chapter progress__chapter--ch7">Том 7</span>
+              <span class="progress__chapter progress__chapter--ch8">Том 8</span>
+            </div>
           </div>
-          <div class="progress__chapters">
-            <span class="progress__chapter progress__chapter--ch1">Том 1</span>
-            <span class="progress__chapter progress__chapter--ch2">Том 2</span>
-            <span class="progress__chapter progress__chapter--ch3">Том 3</span>
-            <span class="progress__chapter progress__chapter--ch4">Том 4</span>
-            <span class="progress__chapter progress__chapter--ch5">Том 5</span>
-            <span class="progress__chapter progress__chapter--ch6">Том 6</span>
-            <span class="progress__chapter progress__chapter--ch7">Том 7</span>
-            <span class="progress__chapter progress__chapter--ch8">Том 8</span>
+
+          <p><em>⚠ На данном этапе, далеко не все имена и названия приведены в норму,
+          финальная их редакция будет только ближе к концу, на 99%</em></p>
+
+          <div class="btn-block">
+            <a class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">fb2</a>
           </div>
         </div>
 
-        <p><em>⚠ На данном этапе, далеко не все имена и названия приведены в норму,
-        финальная их редакция будет только ближе к концу, на 99%</em></p>
-
-        <div class="btn-block">
-          <a class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">fb2</a>
-        </div>
       </div>
+      <!-- Other Sections-- >
     </div>
     <script>
       (function(){
