@@ -1,0 +1,14 @@
+{
+	"Insert Poem": {
+		"scope": "fb2,xml",
+		"prefix": "poem",
+		"body": [
+			"<poem>",
+			"  <stanza>",
+			"    <v>$1</v>",
+			"  </stanza>",
+			"</poem>",
+		],
+		"description": "Insert porm boilerplate"
+	},
+}
