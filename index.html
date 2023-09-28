@@ -56,6 +56,17 @@
         align-items: center;
         min-height: 100vh;
       }
+      .firstScreen__budgets {
+        position: absolute;
+        top: 10px;
+        left: 10px;
+        opacity: 0.5;
+        transition: opacity 0.2s;
+      }
+      .firstScreen__budgets:hover,
+      .firstScreen__budgets:focus-within {
+        opacity: 1;
+      }
       .content {
         margin: 0 auto;
         max-width: 100%;
@@ -193,6 +204,17 @@
 
     <div class="wrapper">
       <div class="firstScreen">
+        <div class="firstScreen__budgets">
+          <iframe
+            src="https://ghbtns.com/github-btn.html?user=Demetri0&repo=fb2-lord-of-the-mysteries&type=star&count=true&size=small"
+            frameborder="0"
+            scrolling="0"
+            width="170"
+            height="30"
+            title="GitHub"
+          />
+          </iframe>
+        </div>
         <div class="content">
           <h1>Lord of the Mysteries</h1>
           <p>Данный проект осуществляет редакцию книги Повелитель Тайн на русском языке.</p>
