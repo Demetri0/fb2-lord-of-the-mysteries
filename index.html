@@ -166,12 +166,11 @@
         display: inline-flex;
         align-items: center;
         justify-content: center;
-        border-left: 1px solid var(--progress-color-incomplete);
+        border-right: 1px solid var(--progress-color-incomplete);
         height: 16px;
       }
       .progress__chapter--ch1 {
         width: calc(214 / var(--progress-total) * 100%);
-        border-left: 0;
       }
       .progress__chapter--ch2 {
         width: calc((483 - 214) / var(--progress-total) * 100%);
@@ -193,6 +192,7 @@
       }
       .progress__chapter--ch8 {
         width: calc((var(--progress-total) - 1354) / var(--progress-total) * 100%);
+        border-right: 0;
       }
     </style>
   </head>
