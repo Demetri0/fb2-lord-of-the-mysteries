@@ -1,0 +1,10 @@
+{
+	"Insert Poem": {
+		"scope": "fb2,xml",
+		"prefix": "split",
+		"body": [
+			"<p>…</p>",
+		],
+		"description": "Insert `…` splitter"
+	},
+}
