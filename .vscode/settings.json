@@ -1,4 +1,18 @@
 {
+  "files.autoSaveDelay": 3000,
+  "xml.server.vmargs": "-Xmx512M",
+  "xml.symbols.maxItemsComputed": 25,
+  "xml.fileAssociations": [
+    { "pattern": "**/*.fb2", "systemId": "https://raw.githubusercontent.com/gribuser/fb2/master/FictionBook.xsd" }
+  ],
+	"wrapSelection.patterns": {
+    "emq": "<emphasis>«${text}»</emphasis> —",
+    "em": "<emphasis>«${text}»</emphasis>",
+    "q": "«${text}»",
+    "qs": "“${text}”",
+    "endp": "</p>\n\t\t\t\t<p>— ",
+    "endph": "</p>\n\t\t\t\t<p>"
+  },
 	"cSpell.words": [
 		"Guǐmì",
 		"Баклунд",

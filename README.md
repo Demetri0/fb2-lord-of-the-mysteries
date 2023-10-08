@@ -187,3 +187,38 @@
 - https://loghorizont.ru/povelitel-tajn-3/
 - https://librebook.me/povelitel_tain/vol3/64
 - https://mangalib.me/lord-of-the-mysterious?section=chapters
+
+## Recommended Keybindings
+
+You can add helpful keybindings for `WrapSelection`` extension, that I use.
+
+Open `~/.config/Code/User/keybindings.json` and add:
+```json
+[
+    {
+        "key": "alt+w alt+e",
+        "command": "wrapSelection.pattern",
+        "args": "em",
+    },
+    {
+        "key": "alt+w alt+shift+e",
+        "command": "wrapSelection.pattern",
+        "args": "emq",
+    },
+    {
+        "key": "alt+w alt+r",
+        "command": "wrapSelection.pattern",
+        "args": "qs",
+    },
+    {
+        "key": "alt+j",
+        "command": "wrapSelection.pattern",
+        "args": "endp",
+    },
+    {
+        "key": "alt+h",
+        "command": "wrapSelection.pattern",
+        "args": "endph",
+    }
+]
+```
