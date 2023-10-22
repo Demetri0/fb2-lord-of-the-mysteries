@@ -171,6 +171,7 @@
 
 ### Ссылки на другие сайты с этой книгой
 
+- https://www.youtube.com/@RanobeAudio
 - https://ranobes.com/ranobe/134618-lord-of-the-mysteries.html (Вроде полный перевод)
 - https://ifreedom.su/ranobe/povelitel-tajn/ (Вроде полный перевод)
 - https://xn--80ac9aeh6f.xn--p1ai/povelitel-tayn/glava-546-duhovnyy-mir (Вроде полный перевод)
@@ -190,7 +191,7 @@
 
 ## Recommended Keybindings
 
-You can add helpful keybindings for `WrapSelection`` extension, that I use.
+You can add helpful keybindings for `WrapSelection` extension, that I use.
 
 Open `~/.config/Code/User/keybindings.json` and add:
 ```json
