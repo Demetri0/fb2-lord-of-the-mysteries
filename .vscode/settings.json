@@ -8,6 +8,7 @@
 	"wrapSelection.patterns": {
     "emq": "<emphasis>«${text}»</emphasis> —",
     "em": "<emphasis>«${text}»</emphasis>",
+    "p": "<p>${text}</p>",
     "q": "«${text}»",
     "qs": "“${text}”",
     "endp": "</p>\n\t\t\t\t<p>— ",
