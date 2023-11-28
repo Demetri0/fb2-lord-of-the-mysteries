@@ -6,7 +6,7 @@
   <id>urn:uuid:433a5d6a-0b8c-4933-af65-4ca4f02763eb</id>
 
   <title>Lord of the Mysteries</title>
-  <summary>Лучшая редакция новеллы Повелитель Тайн от Demetrio</summary>
+  <description>Лучшая редакция новеллы Повелитель Тайн от Demetrio</description>
   <updated>2023-11-27T00:00:00Z</updated>
   <author>
     <name>Demetrio</name>
@@ -23,7 +23,6 @@
     </author>
     <dc:language>ru</dc:language>
     <dc:issued>2023</dc:issued>
-    <description>test</description>
     <summary>
       После переселения в мир пара и машин, главный герой Клейн Моретти всё больше запутывается в своём путешествии
           по этому странному сверхъестественному
