@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom"
+      xmlns:dc="http://purl.org/dc/terms/"
+      xmlns:opds="http://opds-spec.org/2010/catalog">
+
+  <id>urn:uuid:433a5d6a-0b8c-4933-af65-4ca4f02763eb</id>
+
+  <title>Mysterious</title>
+  <updated>2010-01-10T10:01:11Z</updated>
+  <author>
+    <name>Demetrio</name>
+    <uri>https://demetri0.github.io/fb2-lord-of-the-mysteries/</uri>
+  </author>
+
+  <entry>
+    <title>Lord of the Mysteries</title>
+    <id>urn:uuid:6409a00b-7bf2-405e-826c-3fdff0fd0734</id>
+    <updated>2010-01-10T10:01:11Z</updated>
+    <author>
+      <name>Cuttlefish that loves diving</name>
+      <uri>http://opds-spec.org/authors/1285</uri>
+    </author>
+    <dc:language>ru</dc:language>
+    <dc:issued>2023</dc:issued>
+    <summary>Это легенда о Шуте.</summary>
+
+    <link rel="http://opds-spec.org/acquisition"
+          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/Lord%20Of%20The%20Mysteries.fb2"
+      type="application/fb2"/>
+  </entry>
+</feed>
