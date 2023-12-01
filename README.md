@@ -223,3 +223,10 @@ Open `~/.config/Code/User/keybindings.json` and add:
     }
 ]
 ```
+
+## Convert to different formats
+
+На данный момент предоставляется только формат `fb2`.
+
+Однако можно конвертировать в другие форматы.
+Например используя [fb2converter](https://github.com/rupor-github/fb2converter)
