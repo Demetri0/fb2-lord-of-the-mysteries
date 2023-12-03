@@ -599,7 +599,12 @@
     <style>
       .ScreenTableSequences {
         min-height: 100vh;
-        padding-inline: 5vw;
+        overflow-x: scroll;
+      }
+      @media (min-width: 1200px) {
+        .ScreenTableSequences {
+          padding-inline: 5vw;
+        }
       }
       .TableSequences {
         margin: 0 auto;
@@ -611,6 +616,10 @@
       }
       .Spoiler {
         position: relative;
+        overflow: auto;
+      }
+      .Spoiler--active {
+        overflow: hidden;
       }
       .Spoiler--active::after {
         content: "Кликните для просмотра";
@@ -629,6 +638,10 @@
       }
       .TableSequences .TableSequences--OuterDeitiesHeader th {
         padding: 8px;
+      }
+      .TableSequences thead {
+        position: sticky;
+        top: 0;
       }
       .TableSequences td,
       .TableSequences th {
