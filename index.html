@@ -268,6 +268,7 @@
       <div class="ScreenTableSequences">
         <div class="Spoiler Spoiler--active Spoiler--TableSequences">
         <table class="TableSequences">
+          <caption>Последовательности</caption>
           <thead>
             <tr>
               <th colspan="2">Низкие</th>
@@ -645,11 +646,18 @@
         top: 0;
       }
       .TableSequences td,
+      .TableSequences caption,
       .TableSequences th {
         padding: 2px;
         border-width: 1px;
         border-style: solid;
         border-color: var(--divider);
+      }
+      .TableSequences caption {
+        font-weight: bold;
+        font-size: 1.2em;
+        padding: 8px;
+        border-bottom: 0;
       }
       .TableSequences tr:hover td,
       .TableSequences tbody:hover td[rowspan] {
