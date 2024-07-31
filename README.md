@@ -179,11 +179,12 @@
 -
 - https://ranobe.me/ranobe224 (Вроде полный перевод)
 - https://ranobe-novels.ru/povelitel-tajn-veb-novella/ (Вроде полный перевод) (И перевод кажется гавно, но можно редактировать)
-- https://ranobehub.org/ranobe/510-lord-of-the-mysteries (Кажется есть какая-то активность)
+- https://ranobehub.org/ranobe/510-lord-of-the-mysteries (Кажется есть какая-то активность) (Похоже берут перевод с https://tl.rulate.ru/book/15294)
 - https://ranobelib.me/lord-of-the-mysteries?section=info
 - https://bloiteka.info/2021/02/09/cuttlefish-that-loves-diving-povelitel-tayn-01-povelitel-tayn.html
 - https://aume.ru/6511-povelitel-tayn-glavy-400-625.html
-- https://tl.rulate.ru/book/70038
+- https://tl.rulate.ru/book/70038 - упс... кажется это какой-то фанфик на новеллу
+- https://tl.rulate.ru/book/15294 - кажется есть активность переводчиков, доступно 1000+ глав
 - https://www.litlib.net/bk/144592/read
 - https://loghorizont.ru/povelitel-tajn-3/
 - https://librebook.me/povelitel_tain/vol3/64
