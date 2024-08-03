@@ -32,8 +32,8 @@
 
         --progress-total: 1432;
 
-        --progress-color-ready: rgba(205,255,205, 0.55);
-        --progress-color-incomplete: rgba(255,255,100, 0.25);
+        --progress-color-ready: rgba(205,255,205, 0.35);
+        --progress-color-incomplete: rgba(255,255,255, 0.15);
       }
       html, body {
         margin: 0;
@@ -132,6 +132,7 @@
       .progress__line {
         display: flex;
         background-color: var(--progress-color-incomplete);
+	margin-bottom: 2px;
       }
       .progress__line :first-child {
         border-start-start-radius: var(--border-radius);
@@ -148,9 +149,22 @@
         height: 16px;
         font-size: 10px;
 
-        width: calc(var(--progress-finish) / var(--progress-total) * 100%);
+        /* width: calc(var(--progress-finish) / var(--progress-total) * 100%); */
         background-color: var(--progress-color-ready);
       }
+      
+      .progress__line--formating .progress__item {
+        width: calc(var(--progress-formatting-finish) / var(--progress-total) * 100%);
+      }
+      
+      .progress__line--naming .progress__item {
+        width: calc(var(--progress-naming-finish) / var(--progress-total) * 100%);
+      }
+     
+      .progress__line--correction .progress__item {
+        width: calc(var(--progress-correction-finish) / var(--progress-total) * 100%);
+      }
+
       .progress__item span {
         height: 1em;
         padding-inline: 3px;
@@ -230,15 +244,23 @@
           <p>Я не являюсь ни автором книги, ни автором перевода, все ресурсы получены из открытых источников.
           Этот проект не преследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
 
-          <hr>
-
-          <p><strong>Текущий прогресс:</strong> (Форматирование: 100%), (Корректировка имён: ≈80%), (Редактура текста: ≈50%)</p>
-
           <div class="progress">
-            <div class="progress__line">
+            <div class="progress__line progress__line--formating">
               <span class="progress__item">
-                <span></span>
-                <span id="progress-finish">600</span>
+                <span>Форматирование</span>
+                <span id="progress-formatting-finish">1432</span>
+              </span>
+            </div>
+            <div class="progress__line progress__line--naming">
+              <span class="progress__item">
+                <span>Корректировка имён</span>
+		<span>≈80%<span style="display:none;" id="progress-naming-finish">1150</span></span>
+              </span>
+            </div>
+	    <div class="progress__line progress__line--correction">
+              <span class="progress__item">
+                <span>Редактура текста</span>
+		<span>≈50%<span style="display:none;" id="progress-correction-finish">700</span></span>
               </span>
             </div>
             <div class="progress__chapters">
@@ -253,10 +275,8 @@
             </div>
           </div>
 
-          <p><em>⚠ На данном этапе, далеко не все имена и названия приведены в норму!</em></p>
-
           <div class="btn-block">
-            <a class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">⚠ fb2</a>
+            <a class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">Скачать .fb2</a>
           </div>
         </div>
 
@@ -692,8 +712,11 @@
     </style>
     <script>
       (function(){
-        const progressFinish = document.getElementById('progress-finish').textContent;
-        document.documentElement.style.setProperty('--progress-finish', progressFinish);
+	const items = ['progress-formatting-finish', 'progress-naming-finish', 'progress-correction-finish']
+	items.forEach((item) => {
+          const progressFinish = document.getElementById(item).textContent;
+	  document.documentElement.style.setProperty(`--${item}`, progressFinish);
+	})
         document.querySelector('.progress').style.display = 'block';
       })();
 
