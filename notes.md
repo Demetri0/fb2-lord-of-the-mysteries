@@ -38,3 +38,5 @@
 	Использовать их Потусторонние Черты в качестве компонента для зелья — строго не рекомендуется, в силу
 	множества негативных побочных эффектов и явлений. Но зато
 	такие Потусторонние Черты можно превратить в мистические предметы…
+
+ This is a story that the author spent months researching. Set in the Victorian era, the author strives to make it an epic masterpiece. Actual factual tidbits from the real world are weaved into this steampunk world.

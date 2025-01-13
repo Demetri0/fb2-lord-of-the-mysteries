@@ -5,6 +5,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="shortcut icon" href="./assets/favicon.png" />
+    <meta http-equiv="Access-Control-Allow-Origin" content="*">
+    <link rel="stylesheet" href="./range-slider.css" />
     <meta property="og:title" content="Lord of the Mysteries" />
     <meta property="og:image" content="https://demetri0.github.io/fb2-lord-of-the-mysteries/assets/og-image.jpg" />
     <meta property="og:type" content="book" />
@@ -152,15 +154,15 @@
         /* width: calc(var(--progress-finish) / var(--progress-total) * 100%); */
         background-color: var(--progress-color-ready);
       }
-      
+
       .progress__line--formating .progress__item {
         width: calc(var(--progress-formatting-finish) / var(--progress-total) * 100%);
       }
-      
+
       .progress__line--naming .progress__item {
         width: calc(var(--progress-naming-finish) / var(--progress-total) * 100%);
       }
-     
+
       .progress__line--correction .progress__item {
         width: calc(var(--progress-correction-finish) / var(--progress-total) * 100%);
       }
@@ -287,245 +289,251 @@
       <!-- Other Sections -->
 
       <div class="ScreenTableSequences">
+        <!-- <p>Я бы хотел сделать этот слайдер рабочим,
+          но мне нужны данные о том какая Последовательность,
+          в какой главе упоминается впервые.</p>
+
+        <input type="range" min="1" max="1432" value="1" class="ChapterSpoilerSlider" id="chapter-slider" /> -->
+
         <div class="Spoiler Spoiler--active Spoiler--TableSequences">
         <table class="TableSequences">
           <caption>Последовательности</caption>
           <thead>
             <tr>
-              <th colspan="2">Низкие</th>
-              <th colspan="3">Средние</th>
-              <th colspan="4">Высокие (Полубог)</th>
-              <th>Истинный Бог</th>
-              <th>Великий Древний</th>
+              <th data-seq="9 8" colspan="2">Низкие</th>
+              <th data-seq="7 6 5" colspan="3">Средние</th>
+              <th data-seq="4 3 2 1" colspan="4">Высокие (Полубог)</th>
+              <th data-seq="0">Истинный Бог</th>
+              <th data-seq-type="above-the-seq" data-seq="-1">Великий Древний</th>
             </tr>
 
             <tr>
-              <th rowspan="2">9</th>
-              <th rowspan="2">8</th>
-              <th rowspan="2">7</th>
-              <th rowspan="2">6</th>
-              <th rowspan="2">5</th>
-              <th colspan="2">Святой</th>
-              <th colspan="2">Ангел</th>
-              <th rowspan="2">0</th>
-              <th rowspan="2">Над Последовательностью</th>
+              <th data-seq="9" rowspan="2">9</th>
+              <th data-seq="8" rowspan="2">8</th>
+              <th data-seq="7" rowspan="2">7</th>
+              <th data-seq="6" rowspan="2">6</th>
+              <th data-seq="5" rowspan="2">5</th>
+              <th data-seq-type="saint" data-seq="4 3" colspan="2">Святой</th>
+              <th data-seq-type="angel" data-seq="2 1" colspan="2">Ангел</th>
+              <th data-seq="0" rowspan="2">0</th>
+              <th data-seq-type="above-the-seq" data-seq="-1" rowspan="2">Над Последовательностью</th>
             </tr>
 
             <tr>
-              <th>4</th>
-              <th>3</th>
-              <th>2</th>
-              <th>1</th>
+              <th data-seq="4">4</th>
+              <th data-seq="3">3</th>
+              <th data-seq="2">2</th>
+              <th data-seq="1">1</th>
             </tr>
           </thead>
           <tbody>
             <tr class="SeqType--LordOfTheMysteries">
-              <td>Провидец</td>
-              <td>Клоун</td>
-              <td>Фокусник</td>
-              <td>Безликий</td>
-              <td>Марионеточник</td>
-              <td>Причудливый Колдун</td>
-              <td>Знаток Былого</td>
-              <td>Чудотворец</td>
-              <td>Адепт Тайн</td>
-              <td>Шут</td>
-              <td rowspan="3">Повелитель Тайн</td>
+              <td data-seq-name="Seer" data-seq="9">Провидец</td>
+              <td data-seq-name="Clown" data-seq="8">Клоун</td>
+              <td data-seq-name="Magician" data-seq="7">Фокусник</td>
+              <td data-seq-name="Faceless" data-seq="6">Безликий</td>
+              <td data-seq-name="Marionettist" data-seq="5">Марионеточник</td>
+              <td data-seq-name="Bizarro Sorcerer" data-seq="4">Причудливый Колдун</td>
+              <td data-seq-name="Scholar of Yore" data-seq="3">Знаток Былого</td>
+              <td data-seq-name="Miracle Invoker" data-seq="2">Чудотворец</td>
+              <td data-seq-name="Attendant of Mysteries" data-seq="1">Адепт Тайн</td>
+              <td data-seq-name="Fool" data-seq="0">Шут</td>
+              <td data-seq-name="Lord of Mysteries" data-seq="-1" rowspan="3">Повелитель Тайн</td>
             </tr>
             <tr class="SeqType--LordOfTheMysteries">
-              <td>Ученик</td>
-              <td>Мастер Уловок</td>
-              <td>Астролог</td>
-              <td>Писец</td>
-              <td>Путешественник</td>
-              <td>Колдун Секретов</td>
-              <td>Странник</td>
-              <td>Мироходец</td>
-              <td>Ключ Звёзд</td>
-              <td>Дверь</td>
+              <td data-seq-name="Marauder" data-seq="9">Мародёр</td>
+              <td data-seq-name="Swindler" data-seq="8">Мошенник</td>
+              <td data-seq-name="Cryptologist" data-seq="7">Криптолог</td>
+              <td data-seq-name="Prometheus" data-seq="6">Вор Огня</td>
+              <td data-seq-name="Dream Stealer" data-seq="5">Похититель Снов</td>
+              <td data-seq-name="Parasite" data-seq="4">Паразит</td>
+              <td data-seq-name="Mentor of Deceit" data-seq="3">Настравник Обмана</td>
+              <td data-seq-name="Trojan Horse of Destiny" data-seq="2">Троянский Конь Судьбы</td>
+              <td data-seq-name="Worm of Time" data-seq="1">Червь Времени</td>
+              <td data-seq-name="Error" data-seq="0">Ошибка</td>
             </tr>
             <tr class="SeqType--LordOfTheMysteries">
-              <td>Мародёр</td>
-              <td>Мошенник</td>
-              <td>Криптолог</td>
-              <td>Вор Огня</td>
-              <td>Похититель Снов</td>
-              <td>Паразит</td>
-              <td>Настравник Обмана</td>
-              <td>Троянский Конь Судьбы</td>
-              <td>Червь Времени</td>
-              <td>Ошибка</td>
+              <td data-seq-name="Apprentice" data-seq="9">Ученик</td>
+              <td data-seq-name="Trickmaster" data-seq="8">Мастер Уловок</td>
+              <td data-seq-name="Astrologer" data-seq="7">Астролог</td>
+              <td data-seq-name="Scribe" data-seq="6">Писец</td>
+              <td data-seq-name="Traveler" data-seq="5">Путешественник</td>
+              <td data-seq-name="Secrets Sorcerer" data-seq="4">Колдун Секретов</td>
+              <td data-seq-name="Wanderer" data-seq="3">Странник</td>
+              <td data-seq-name="Planeswalker" data-seq="2">Мироходец</td>
+              <td data-seq-name="Key of Stars" data-seq="1">Ключ Звёзд</td>
+              <td data-seq-name="Door" data-seq="0">Дверь</td>
             </tr>
           </tbody>
           <tbody>
             <tr class="SeqType--GodAlmighty">
-              <td>Зритель</td>
-              <td>Телепат</td>
-              <td>Психиатр</td>
-              <td>Гипнотизёр</td>
-              <td>Сновидец</td>
-              <td>Манипулятор</td>
-              <td>Ткач Снов</td>
-              <td>Зоркий</td>
-              <td>Автор</td>
-              <td>Визионер</td>
-              <td rowspan="5">Бог Всемогущий</td>
+              <td data-seq-name="Spectator" data-seq="9">Зритель</td>
+              <td data-seq-name="Telepathist" data-seq="8">Телепат</td>
+              <td data-seq-name="Psychiatrist" data-seq="7">Психиатр</td>
+              <td data-seq-name="Hypnotist" data-seq="6">Гипнотизёр</td>
+              <td data-seq-name="Dreamwalker" data-seq="5">Сновидец</td> <!-- Сноходец -->
+              <td data-seq-name="Manipulator" data-seq="4">Манипулятор</td>
+              <td data-seq-name="Dream Weaver" data-seq="3">Ткач Снов</td>
+              <td data-seq-name="Discerner" data-seq="2">Зоркий</td>
+              <td data-seq-name="Author" data-seq="1">Автор</td>
+              <td data-seq-name="Visionary" data-seq="0">Визионер</td>
+              <td data-seq-name="God Almighty" data-seq="-1" rowspan="5">Бог Всемогущий</td>
             </tr>
             <tr class="SeqType--GodAlmighty">
-              <td>Проситель Секретов</td>
-              <td>Слушатель</td>
-              <td>Теневой Подвижник</td>
-              <td>Епископ Роз</td>
-              <td>Пастырь</td>
-              <td>Тёмный Рыцарь</td>
-              <td>Троицкий Тамплиер</td>
-              <td>Нечестивый Священник</td>
-              <td>Тёмный Ангел</td>
-              <td>Висельник</td>
+              <td data-reveal-chapter="140" data-seq-name="Bard" data-seq="9">Бард</td>
+              <td data-reveal-chapter="140" data-seq-name="Light Supplicant" data-seq="8">Жрец Света</td>
+              <td data-seq-name="Solar High Priest" data-seq="7">Солнечный Первосвященник</td>
+              <td data-seq-name="Notary" data-seq="6">Нотариус</td>
+              <td data-reveal-chapter="140" data-seq-name="Priest of Light" data-seq="5">Солнечный Священник</td>
+              <td data-reveal-chapter="140" data-seq-name="Unshadowed" data-seq="4">Незапятнанный Тенью</td>
+              <td data-seq-name="Justice Mentor" data-seq="3">Наставник Правосудия</td>
+              <td data-seq-name="Lightseeker" data-seq="2">Искатель Света</td>
+              <td data-seq-name="White Angel" data-seq="1">Белый Ангел</td>
+              <td data-seq-name="Sun" data-seq="0">Солнце</td>
             </tr>
             <tr class="SeqType--GodAlmighty">
-              <td>Бард</td>
-              <td>Жрец Света</td>
-              <td>Солнечный Первосвященник</td>
-              <td>Нотариус</td>
-              <td>Солнечный Священник</td>
-              <td>Незапятнанный Тенью</td>
-              <td>Наставник Правосудия</td>
-              <td>Искатель Света</td>
-              <td>Белый Ангел</td>
-              <td>Солнце</td>
+              <td data-seq-name="Sailor" data-seq="9">Моряк</td>
+              <td data-seq-name="Folk of Rage" data-seq="8">Народ Ярости</td>
+              <td data-seq-name="Seafarer" data-seq="7">Навигатор</td>
+              <td data-seq-name="Wind-blessed" data-seq="6">Благословенный Ветром</td>
+              <td data-seq-name="Ocean Songster" data-seq="5">Певец Морей</td>
+              <td data-seq-name="Cataclysmic Interrer" data-seq="4">Сущность Катаклизма</td>
+              <td data-seq-name="Sea King" data-seq="3">Морской Король</td>
+              <td data-seq-name="Calamity" data-seq="2">Бедствие</td>
+              <td data-seq-name="Thunder God" data-seq="1">Бог Грома</td>
+              <td data-seq-name="Tyrant" data-seq="0">Тиран</td>
             </tr>
             <tr class="SeqType--GodAlmighty">
-              <td>Моряк</td>
-              <td>Народ Ярости</td>
-              <td>Навигатор</td>
-              <td>Благословенный Ветром</td>
-              <td>Певец Морей</td>
-              <td>Сущность Катаклизма</td>
-              <td>Морской Король</td>
-              <td>Бедствие</td>
-              <td>Бог Грома</td>
-              <td>Тиран</td>
+              <td data-seq-name="Reader" data-seq="9">Чтец</td>
+              <td data-seq-name="Student of Ratiocination" data-seq="8">Ученик Рационализма</td>
+              <td data-seq-name="Detective" data-seq="7">Детектив</td>
+              <td data-seq-name="Polymath" data-seq="6">Эрудит</td>
+              <td data-seq-name="Mysticism Magister" data-seq="5">Магистр Мистицизма</td>
+              <td data-seq-name="Prophet" data-seq="4">Пророк</td>
+              <td data-seq-name="Cognizer" data-seq="3">Познаватель</td>
+              <td data-seq-name="Wisdom Angel" data-seq="2">Ангел Мудрости</td>
+              <td data-seq-name="Omniscient Eye" data-seq="1">Всеведущее Око</td>
+              <td data-seq-name="White Tower" data-seq="0">Белая Башня</td>
             </tr>
             <tr class="SeqType--GodAlmighty">
-              <td>Чтец</td>
-              <td>Ученик Рационализма</td>
-              <td>Детектив</td>
-              <td>Эрудит</td>
-              <td>Магистр Мистицизма</td>
-              <td>Пророк</td>
-              <td>Познаватель</td>
-              <td>Ангел Мудрости</td>
-              <td>Всеведущее Око</td>
-              <td>Белая Башня</td>
+              <td data-seq-name="Secrets Supplicant" data-seq="9">Проситель Секретов</td>
+              <td data-seq-name="Listener" data-seq="8">Слушатель</td>
+              <td data-seq-name="Shadow Ascetic" data-seq="7">Теневой Подвижник</td>
+              <td data-seq-name="Rose Bishop" data-seq="6">Епископ Роз</td>
+              <td data-seq-name="Shepherd" data-seq="5">Пастырь</td>
+              <td data-seq-name="Black Knight" data-seq="4">Тёмный Рыцарь</td>
+              <td data-seq-name="Trinity Templar" data-seq="3">Троицкий Тамплиер</td>
+              <td data-seq-name="Profane Presbyter" data-seq="2">Нечестивый Священник</td>
+              <td data-seq-name="Dark Angel" data-seq="1">Тёмный Ангел</td>
+              <td data-seq-name="Hanged Man" data-seq="0">Висельник</td>
             </tr>
           </tbody>
           <tbody>
             <tr class="SeqType--EthernalDarkness">
-              <td>Бессонница</td>
-              <td>Полуночный Поэт</td>
-              <td>Ночной Кошмар</td>
-              <td>Заверитель Душ</td>
-              <td>Заклинатель Духов</td>
-              <td>Ночной Страж</td>
-              <td>Повелитель Ужаса</td>
-              <td>Слуга Сокрытия</td>
-              <td>Рыцарь Несчастья</td>
-              <td>Тьма</td>
-              <td rowspan="3">Вечная Тьма</td>
+              <td data-seq-name="Sleepless" data-seq="9">Бессонный</td>
+              <td data-seq-name="Midnight Poet" data-seq="8">Полуночный Поэт</td>
+              <td data-seq-name="Nightmare" data-seq="7">Ночной Кошмар</td>
+              <td data-seq-name="Soul Assurer" data-seq="6">Заверитель Душ</td>
+              <td data-seq-name="Spirit Warlock" data-seq="5">Заклинатель Духов</td>
+              <td data-seq-name="Nightwatcher" data-seq="4">Ночной Страж</td>
+              <td data-seq-name="Horror Bishop" data-seq="3">Повелитель Ужаса</td>
+              <td data-seq-name="Servant of Concealment" data-seq="2">Слуга Сокрытия</td>
+              <td data-seq-name="Knight of Misfortune" data-seq="1">Рыцарь Несчастья</td>
+              <td data-seq-name="Darkness" data-seq="0">Тьма</td>
+              <td data-seq-name="Eternal Darkness" data-seq="-1" rowspan="3">Вечная Тьма</td>
             </tr>
             <tr class="SeqType--EthernalDarkness">
-              <td>Сборщик Трупов</td>
-              <td>Копатель Могил</td>
-              <td>Духовный Медиум</td>
-              <td>Проводник Духов</td>
-              <td>Привратник</td>
-              <td>Неумирающий</td>
-              <td>Перевозчик Душ</td>
-              <td>Консул Смерти</td>
-              <td>Бледный Император</td>
-              <td>Смерть</td>
+              <td data-seq-name="Corpse Collector" data-seq="9">Сборщик Трупов</td>
+              <td data-seq-name="Gravedigger" data-seq="8">Копатель Могил</td>
+              <td data-seq-name="Spirit Medium" data-seq="7">Духовный Медиум</td>
+              <td data-seq-name="Spirit Guide" data-seq="6">Проводник Духов</td>
+              <td data-seq-name="Gatekeeper" data-seq="5">Привратник</td>
+              <td data-seq-name="Undying" data-seq="4">Неумирающий</td>
+              <td data-seq-name="Ferryman" data-seq="3">Перевозчик Душ</td>
+              <td data-seq-name="Death Consul" data-seq="2">Консул Смерти</td>
+              <td data-seq-name="Pale Emperor" data-seq="1">Бледный Император</td>
+              <td data-seq-name="Death" data-seq="0">Смерть</td>
             </tr>
             <tr class="SeqType--EthernalDarkness">
-              <td>Воин</td>
-              <td>Боец</td>
-              <td>Мастер Оружия</td>
-              <td>Паладин Рассвета</td>
-              <td>Хранитель</td>
-              <td>Охотник на Демонов</td>
-              <td>Серебряный Рыцарь</td>
-              <td>Прославленный</td>
-              <td>Рука Бога</td>
-              <td>Сумеречный Гигант</td>
+              <td data-seq-name="Warrior" data-seq="9">Воин</td>
+              <td data-seq-name="Pugilist" data-seq="8">Боец</td>
+              <td data-seq-name="Weapon Master" data-seq="7">Мастер Оружия</td>
+              <td data-seq-name="Dawn Paladin" data-seq="6">Паладин Рассвета</td>
+              <td data-seq-name="Guardian" data-seq="5">Хранитель</td>
+              <td data-seq-name="Demon Hunter" data-seq="4">Охотник на Демонов</td>
+              <td data-seq-name="Silver Knight" data-seq="3">Серебряный Рыцарь</td>
+              <td data-seq-name="Glory" data-seq="2">Прославленный</td>
+              <td data-seq-name="Hand of God" data-seq="1">Рука Бога</td>
+              <td data-seq-name="Twilight Giant" data-seq="0">Сумеречный Гигант</td>
             </tr>
           </tbody>
           <tbody>
             <tr class="SeqType--CalamityOfDestruction">
-              <td>Охотник</td>
-              <td>Провокатор</td>
-              <td>Пиромант</td>
-              <td>Заговорщик</td>
-              <td>Жнец</td>
-              <td>Железнокровный Рыцарь</td>
-              <td>Военный Епископ</td>
-              <td>Погодный Маг</td>
-              <td>Завоеватель</td>
-              <td>Красный Жрец</td>
-              <td rowspan="2">Бедствие Разрушений</td>
+              <td data-seq-name="Assassin" data-seq="9">Ассасин</td>
+              <td data-seq-name="Instigator" data-seq="8">Подстрекатель</td>
+              <td data-seq-name="Witch" data-seq="7">Ведьма</td>
+              <td data-seq-name="Pleasure" data-seq="6">Демонесса Наслаждения</td>
+              <td data-seq-name="Affliction" data-seq="5">Демонесса Страдания</td>
+              <td data-seq-name="Despair" data-seq="4">Демонесса Отчаяния</td>
+              <td data-seq-name="Unaging" data-seq="3">Демонесса Вечной Молодости</td>
+              <td data-seq-name="Catastrophe" data-seq="2">Демонесса Бедствий</td>
+              <td data-seq-name="Apocalypse" data-seq="1">Апокалипсис</td>
+              <td data-seq-name="Demoness" data-seq="0">Демонесса</td>
+              <td data-seq-name="Calamity of Destruction" data-seq="-1" rowspan="2">Бедствие Разрушений</td>
             </tr>
             <tr class="SeqType--CalamityOfDestruction">
-              <td>Ассасин</td>
-              <td>Подстрекатель</td>
-              <td>Ведьма</td>
-              <td>Демонесса Наслаждения</td>
-              <td>Демонесса Страдания</td>
-              <td>Демонесса Отчаяния</td>
-              <td>Демонесса Вечной Молодости</td>
-              <td>Демонесса Бедствий</td>
-              <td>Апокалипсис</td>
-              <td>Демонесса</td>
+              <td data-seq-name="Hunter" data-seq="9">Охотник</td>
+              <td data-seq-name="Provoker" data-seq="8">Провокатор</td>
+              <td data-seq-name="Pyromaniac" data-seq="7">Пиромант</td>
+              <td data-seq-name="Conspirer" data-seq="6">Заговорщик</td>
+              <td data-seq-name="Reaper" data-seq="5">Жнец</td>
+              <td data-seq-name="Iron-Blooded Knight" data-seq="4">Железнокровный Рыцарь</td>
+              <td data-seq-name="War Bishop" data-seq="3">Военный Епископ</td>
+              <td data-seq-name="Weather Warlock" data-seq="2">Погодный Маг</td>
+              <td data-seq-name="Conqueror" data-seq="1">Завоеватель</td>
+              <td data-seq-name="Red Priest" data-seq="0">Красный Жрец</td>
             </tr>
           </tbody>
           <tbody>
             <tr class="SeqType--DemonOfKnowledge">
-              <td>Учёный</td>
-              <td>Археолог</td>
-              <td>Оценщик</td>
-              <td>Механник</td>
-              <td>Астроном</td>
-              <td>Алхимик</td>
-              <td>Знаток Тайн</td>
-              <td>Магистр Знаний</td>
-              <td>Просветитель</td>
-              <td>Парагон</td>
-              <td rowspan="2">Демон Знаний</td>
+              <td data-seq-name="Mystery Pryer" data-seq="9">Жрец Тайн</td>
+              <td data-seq-name="Melee Scholar" data-seq="8">Учёный Ближнего Боя</td>
+              <td data-seq-name="Warlock" data-seq="7">Чернокнижник</td>
+              <td data-seq-name="Scrolls Professor" data-seq="6">Читающий Свитки</td>
+              <td data-seq-name="Constellations Master" data-seq="5">Мастер Созвездий</td>
+              <td data-seq-name="Mysticologist" data-seq="4">Мистиколог</td>
+              <td data-seq-name="Clairvoyant" data-seq="3">Ясновидящий</td>
+              <td data-seq-name="Sage" data-seq="2">Мудрец</td>
+              <td data-seq-name="Knowledge Emperor" data-seq="1">Император Знаний</td>
+              <td data-seq-name="Hermit" data-seq="0">Отшельник</td>
+              <td data-seq-name="Demon of Knowledge" data-seq="-1" rowspan="2">Демон Знаний</td>
             </tr>
             <tr class="SeqType--DemonOfKnowledge">
-              <td>Жрец Тайн</td>
-              <td>Учёный Ближнего Боя</td>
-              <td>Чернокнижник</td>
-              <td>Читающий Свитки</td>
-              <td>Мастер Созвездий</td>
-              <td>Мистиколог</td>
-              <td>Ясновидящий</td>
-              <td>Мудрец</td>
-              <td>Император Знаний</td>
-              <td>Отшельник</td>
+              <td data-seq-name="Savant" data-seq="9">Учёный</td>
+              <td data-seq-name="Archaeologist" data-seq="8">Археолог</td>
+              <td data-seq-name="Appraiser" data-seq="7">Оценщик</td>
+              <td data-seq-name="Artisan" data-seq="6">Механник</td>
+              <td data-seq-name="Astronomer" data-seq="5">Астроном</td>
+              <td data-seq-name="Alchemist" data-seq="4">Алхимик</td>
+              <td data-seq-name="Arcane Scholar" data-seq="3">Знаток Тайн</td>
+              <td data-seq-name="Knowledge Magister" data-seq="2">Магистр Знаний</td>
+              <td data-seq-name="Illuminator" data-seq="1">Просветитель</td>
+              <td data-seq-name="Paragon" data-seq="0">Парагон</td>
             </tr>
           </tbody>
           <tbody>
             <tr class="SeqType--KeyOfLight">
-              <td>Монстр</td>
-              <td>Робот</td>
-              <td>Везунчик</td>
-              <td>Жрец Бедствия</td>
-              <td>Победитель</td>
-              <td>Маг Несчастья</td>
-              <td>Странник Хаоса</td>
-              <td>Прорицатель</td>
-              <td>Змей Меркурий</td>
-              <td>Колесо Фортуны</td>
-              <td>Ключ Света</td>
+              <td data-seq-name="Monster" data-seq="9">Монстр</td>
+              <td data-seq-name="Robot" data-seq="8">Робот</td>
+              <td data-seq-name="Lucky One" data-seq="7">Везунчик</td>
+              <td data-seq-name="Calamity Priest" data-seq="6">Жрец Бедствия</td>
+              <td data-seq-name="Winner" data-seq="5">Победитель</td>
+              <td data-seq-name="Misfortune Mage" data-seq="4">Маг Несчастья</td>
+              <td data-seq-name="Chaoswalker" data-seq="3">Странник Хаоса</td>
+              <td data-seq-name="Soothsayer" data-seq="2">Прорицатель</td>
+              <td data-seq-name="Snake of Mercury" data-seq="1">Змей Меркурий</td>
+              <td data-seq-name="Wheel of Fortune" data-seq="0">Колесо Фортуны</td>
+              <td data-seq-name="Key of Light" data-seq="-1">Ключ Света</td>
             </tr>
           </tbody>
           <tbody>
@@ -535,83 +543,83 @@
           </tbody>
           <tbody>
             <tr class="SeqType--GoddessOfOrigin">
-              <td>Аптекарь</td>
-              <td>Укротитель Зверей</td>
-              <td>Вампир</td>
-              <td>Профессор Зельеварения</td>
-              <td>Алый Учёный</td>
-              <td>Шамаг Кинг</td>
-              <td>Повелитель Призыва</td>
-              <td>Дарующий Жизнь</td>
-              <td>Богиня Красоты</td>
-              <td>Луна</td>
-              <td rowspan="2">Богиня Истоков</td>
+              <td data-seq-name="Planter" data-seq="9">Фермер</td>
+              <td data-seq-name="Doctor" data-seq="8">Врач</td>
+              <td data-seq-name="Harvest Priest" data-seq="7">Жатвенный Священник</td>
+              <td data-seq-name="Biologist" data-seq="6">Биолог</td>
+              <td data-seq-name="Druid" data-seq="5">Друид</td>
+              <td data-seq-name="Classical Alchemist" data-seq="4">Древний Металлург</td>
+              <td data-seq-name="Pallbearer" data-seq="3">Гробоносец</td>
+              <td data-seq-name="Desolate Matriarch" data-seq="2">Матриарх Опустошения</td>
+              <td data-seq-name="Naturewalker" data-seq="1">Природный Странник</td>
+              <td data-seq-name="Mother" data-seq="0">Мать</td>
+              <td data-seq-name="Goddess of Origin" data-seq="-1" rowspan="2">Богиня Истоков</td>
             </tr>
             <tr class="SeqType--GoddessOfOrigin">
-              <td>Фермер</td>
-              <td>Врач</td>
-              <td>Жатвенный Священник</td>
-              <td>Биолог</td>
-              <td>Друид</td>
-              <td>Древний Металлург</td>
-              <td>Гробоносец</td>
-              <td>Матриарх Опустошения</td>
-              <td>Природный Странник</td>
-              <td>Мать</td>
-            </tr>
-          </tbody>
-          <tbody>
-            <tr class="SeqType--TheAnarchy">
-              <td>Адвокат</td>
-              <td>Варвар</td>
-              <td>Взяточник</td>
-              <td>Порочный Барон</td>
-              <td>Гуру Смятения</td>
-              <td>Граф Падших</td>
-              <td>Неистовый Чародей</td>
-              <td>Герцог Беспорядка</td>
-              <td>Принц Хаоса</td>
-              <td>Тёмный Император</td>
-              <td rowspan="2">Анархия</td>
-            </tr>
-            <tr class="SeqType--TheAnarchy">
-              <td>Арбитр</td>
-              <td>Шериф</td>
-              <td>Дознаватель</td>
-              <td>Судья</td>
-              <td>Дисциплинарный Паладин</td>
-              <td>Маг Повеления</td>
-              <td>Охотник Хаоса</td>
-              <td>Уравнитель</td>
-              <td>Десница Порядка</td>
-              <td>Юстициарий</td>
+              <td data-seq-name="Apothecary" data-seq="9">Аптекарь</td>
+              <td data-seq-name="Beast Tamer" data-seq="8">Укротитель Зверей</td>
+              <td data-seq-name="Vampire" data-seq="7">Вампир</td>
+              <td data-seq-name="Potions Professor" data-seq="6">Профессор Зельеварения</td>
+              <td data-seq-name="Scarlet Scholar" data-seq="5">Алый Учёный</td>
+              <td data-seq-name="Shaman King" data-seq="4">Шамаг Кинг</td>
+              <td data-seq-name="High Summoner" data-seq="3">Повелитель Призыва</td>
+              <td data-seq-name="Life-Giver" data-seq="2">Дарующий Жизнь</td>
+              <td data-seq-name="Beauty Goddess" data-seq="1">Богиня Красоты</td>
+              <td data-seq-name="Moon" data-seq="0">Луна</td>
             </tr>
           </tbody>
           <tbody>
             <tr class="SeqType--FatherOfDevils">
-              <td>Заключённый</td>
-              <td>Сумасшедший</td>
-              <td>Оборотень</td>
-              <td>Зомби</td>
-              <td>Призрак</td>
-              <td>Кукла</td>
-              <td>Апостол Тишины</td>
-              <td>Древнее Проклятие</td>
-              <td>Мерзость</td>
-              <td>Закованный</td>
-              <td rowspan="2">Отец Дьяволов</td>
+              <td data-seq-name="Criminal" data-seq="9">Преступник</td>
+              <td data-seq-name="Unwinged Angel" data-seq="8">Хладнокровный</td> <!-- Падший ангел?-->
+              <td data-seq-name="Serial Killer" data-seq="7">Серийный Убийца</td>
+              <td data-seq-name="Devil" data-seq="6">Дьявол</td>
+              <td data-seq-name="Desire Apostle" data-seq="5">Апостол Желаний</td>
+              <td data-seq-name="Demon" data-seq="4">Демон</td>
+              <td data-seq-name="Blatherer" data-seq="3">Болтун</td>
+              <td data-seq-name="Bloody Archduke" data-seq="2">Кровавый Эрцгерцог</td>
+              <td data-seq-name="Filthy Monarch" data-seq="1">Грязный Монарх</td>
+              <td data-seq-name="Abyss" data-seq="0">Бездна</td>
+              <td data-seq-name="Father of Devils" data-seq="-1" rowspan="2">Отец Дьяволов</td>
             </tr>
             <tr class="SeqType--FatherOfDevils">
-              <td>Преступник</td>
-              <td>Хладнокровный</td>
-              <td>Серийный Убийца</td>
-              <td>Дьявол</td>
-              <td>Апостол Желаний</td>
-              <td>Демон</td>
-              <td>Болтун</td>
-              <td>Кровавый Эрцгерцог</td>
-              <td>Грязный Монарх</td>
-              <td>Бездна</td>
+              <td data-seq-name="Prisoner" data-seq="9">Заключённый</td>
+              <td data-seq-name="Lunatic" data-seq="8">Сумасшедший</td>
+              <td data-seq-name="Werewolf" data-seq="7">Оборотень</td>
+              <td data-seq-name="Zombie" data-seq="6">Зомби</td>
+              <td data-seq-name="Wraith" data-seq="5">Призрак</td>
+              <td data-seq-name="Puppet" data-seq="4">Кукла</td>
+              <td data-seq-name="Disciple of Silence" data-seq="3">Апостол Тишины</td>
+              <td data-seq-name="Ancient Bane" data-seq="2">Древнее Проклятие</td>
+              <td data-seq-name="Abomination" data-seq="1">Мерзость</td>
+              <td data-seq-name="Chained" data-seq="0">Закованный</td>
+            </tr>
+          </tbody>
+          <tbody>
+            <tr class="SeqType--TheAnarchy">
+              <td data-seq-name="Lawyer" data-seq="9">Адвокат</td>
+              <td data-seq-name="Barbarian" data-seq="8">Варвар</td>
+              <td data-seq-name="Briber" data-seq="7">Взяточник</td>
+              <td data-seq-name="Baron of Corruption" data-seq="6">Порочный Барон</td>
+              <td data-seq-name="Mentor of Disorder" data-seq="5">Гуру Смятения</td>
+              <td data-seq-name="Earl of the Fallen" data-seq="4">Граф Падших</td>
+              <td data-seq-name="Frenzied Mage" data-seq="3">Неистовый Чародей</td>
+              <td data-seq-name="Duke of Entropy" data-seq="2">Герцог Беспорядка</td>
+              <td data-seq-name="Prince of Abolition" data-seq="1">Принц Хаоса</td>
+              <td data-seq-name="Black Emperor" data-seq="0">Тёмный Император</td>
+              <td data-seq-name="The Anarchy" data-seq="-1" rowspan="2">Анархия</td>
+            </tr>
+            <tr class="SeqType--TheAnarchy">
+              <td data-seq-name="Arbiter" data-seq="9">Арбитр</td>
+              <td data-seq-name="Sheriff" data-seq="8">Шериф</td>
+              <td data-seq-name="Interrogator" data-seq="7">Дознаватель</td>
+              <td data-seq-name="Judge" data-seq="6">Судья</td>
+              <td data-seq-name="Disciplinary Paladin" data-seq="5">Дисциплинарный Паладин</td>
+              <td data-seq-name="Imperative Mage" data-seq="4">Маг Повеления</td>
+              <td data-seq-name="Chaos Hunter" data-seq="3">Охотник Хаоса</td>
+              <td data-seq-name="Balancer" data-seq="2">Уравнитель</td>
+              <td data-seq-name="Hand of Order" data-seq="1">Десница Порядка</td>
+              <td data-seq-name="Justiciar" data-seq="0">Юстициарий</td>
             </tr>
           </tbody>
         </table>
@@ -636,6 +644,12 @@
       }
       .Spoiler--active * {
         filter: blur(3px) !important;
+      }
+      .Spoiler--hidden {
+        filter: blur(3px) !important;
+      }
+      .ChapterSpoilerSlider {
+        width: 100%;
       }
       .Spoiler {
         position: relative;
@@ -714,11 +728,11 @@
     </style>
     <script>
       (function(){
-	const items = ['progress-formatting-finish', 'progress-naming-finish', 'progress-correction-finish']
-	items.forEach((item) => {
-          const progressFinish = document.getElementById(item).textContent;
-	  document.documentElement.style.setProperty(`--${item}`, progressFinish);
-	})
+        const items = ['progress-formatting-finish', 'progress-naming-finish', 'progress-correction-finish']
+        items.forEach((item) => {
+                const progressFinish = document.getElementById(item).textContent;
+          document.documentElement.style.setProperty(`--${item}`, progressFinish);
+        })
         document.querySelector('.progress').style.display = 'block';
       })();
 
@@ -731,5 +745,25 @@
         });
       })();
     </script>
+
+    <!-- <script type="module">
+      import data from './seq-reveal.json' with { type: 'json' }
+
+      const $tds = document.querySelectorAll('[data-seq]')
+      const $slider = document.getElementById('chapter-slider')
+      $slider.addEventListener('input', (event) => {
+        const chapter = event.target.value
+        $tds.forEach(($td) => {
+          const seq = $td.dataset.seq.split(' ').map(Number)
+          console.log($td, seq)
+          if (seq.some((sq) => sq > 5)) {
+            $td.classList.remove('Spoiler--hidden')
+          } else {
+            $td.classList.add('Spoiler--hidden')
+          }
+        })
+        // console.log('chapter>', chapter, $tds)
+      })
+    </script> -->
   </body>
 </html>

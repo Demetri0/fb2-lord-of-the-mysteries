@@ -82,6 +82,8 @@
 	- Используйте только те варианты форматирования что указаны в этом файле в разделе [Форматирование](#форматирование). Даже если оно не идеально, его нужно менять по всей книге, и если оно будет однообразно неправильно везде, то изменение этого займёт не более 10 минут, [создайте issue](https://github.com/Demetri0/fb2-lord-of-the-mysteries/issues/new) если вы считаете что какое-либо форматирование можно улучшить и опишите ваше видение;
 	- Не беритесь исправлять что-либо во всём файле, есть высокая вероятность что кто-то другой может внести изменение в тот же самый участок текста из за чего возникнет конфликт, [создайте issue](https://github.com/Demetri0/fb2-lord-of-the-mysteries/issues/new) и опишите встреченную вами проблему.
 
+- Высокого уровня = высокой ступени / средней / низкой
+
 ## Специальные символы
 
 | Symbol |   UTF  | Title    | Usage |
@@ -200,6 +202,11 @@
 - https://ranobes.net/lord-of-the-mysteries-133485/186600.html
 
 ### Ссылки на другие сайты с этой книгой
+
+- [ZH] https://www.beqege.cc/1522/
+- [EN] https://novelbin.org/novelbin/lord-of-the-mysteries#tab-chapters-title
+- [EN] (locked) https://www.webnovel.com/book/lord-of-mysteries_11022733006234505
+- [RU] https://ranobehub.org/ranobe/510-lord-of-the-mysteries
 
 - https://www.youtube.com/@RanobeAudio
 - https://ranobes.com/ranobe/134618-lord-of-the-mysteries.html (Вроде полный перевод)
