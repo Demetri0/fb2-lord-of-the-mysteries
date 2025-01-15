@@ -99,11 +99,8 @@
         border-bottom: 1px solid var(--divider);
       }
       .btn {
-        --size: 36px;
-        display: inline-block;
-        width: 128px;
-        height: var(--size);
-        line-height: var(--size);
+        display: inline-flex;
+        padding: 0.75em 1.25em;
         text-align: center;
         border: 1px solid var(--divider);
         border-radius: var(--border-radius);
@@ -123,6 +120,21 @@
         display: flex;
         justify-content: center;
         margin-top: 32px;
+      }
+      .new-version {
+        position: relative;
+        flex-direction: column;
+        gap: 8px;
+        padding-inline: 2em;
+        border-color: var(--progress-color-ready);
+      }
+      .new-version::after {
+        content: "(New)";
+        display: block;
+
+        font-size: 0.65em;
+        line-height: 0.65em;
+        color: var(--progress-color-ready);
       }
     </style>
     <style>
@@ -244,7 +256,7 @@
           <p>Я не являюсь ни автором книги, ни автором перевода, все ресурсы получены из открытых источников.
           Этот проект не преследует целей монетизации, а является лишь ресурсом для домашнего ознакомительного чтения.</p>
 
-	  <p><em>⚠ Проект заморожен, надежды на продолжение мало.</em></p>
+	        <p><em>⚠ Проект заморожен, надежды на продолжение мало.</em></p>
 
           <div class="progress">
             <div class="progress__line progress__line--formating">
@@ -256,13 +268,13 @@
             <div class="progress__line progress__line--naming">
               <span class="progress__item">
                 <span>Корректировка имён</span>
-		<span>≈80%<span style="display:none;" id="progress-naming-finish">1150</span></span>
+		            <span>≈82%<span style="display:none;" id="progress-naming-finish">1160</span></span>
               </span>
             </div>
-	    <div class="progress__line progress__line--correction">
+	          <div class="progress__line progress__line--correction">
               <span class="progress__item">
                 <span>Редактура текста</span>
-		<span>≈50%<span style="display:none;" id="progress-correction-finish">700</span></span>
+		            <span>≈51%<span style="display:none;" id="progress-correction-finish">705</span></span>
               </span>
             </div>
             <div class="progress__chapters">
@@ -278,7 +290,7 @@
           </div>
 
           <div class="btn-block">
-            <a class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">Скачать .fb2</a>
+            <a id="download-fb2" class="btn" aria-label="Download fb2 book" href="./Lord Of The Mysteries.fb2">Скачать .fb2</a>
           </div>
         </div>
 
@@ -807,5 +819,35 @@
         })
       })
     </script>
+    <script>
+      const LAST_DOWNLOAD_LS_KEY = 'lastDownloadTime'
+      const lastDownloadTime = window.localStorage.getItem(LAST_DOWNLOAD_LS_KEY)
+
+      const latestComitTime = { current: Date.now() }
+
+      const $btnDownload = document.getElementById('download-fb2')
+      $btnDownload.addEventListener('click', () => {
+        window.localStorage.setItem(LAST_DOWNLOAD_LS_KEY, latestComitTime.current)
+      })
+
+      function onLastCommitReceived(response) {
+        const lastCommit = new Date(response?.data?.commit?.author?.date)
+        latestComitTime.current = lastCommit.valueOf()
+
+        if (!lastDownloadTime) {
+          return
+        }
+
+        const lastDownload = new Date(Number(lastDownloadTime))
+
+        if (lastDownload.valueOf() >= lastCommit.valueOf()) {
+          return
+        }
+
+        $btnDownload.classList.add('new-version')
+      }
+
+    </script>
+    <script src="https://api.github.com/repos/demetri0/fb2-lord-of-the-mysteries/commits/master?callback=onLastCommitReceived"></script>
   </body>
 </html>
