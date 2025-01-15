@@ -809,7 +809,11 @@
       const $tds = document.querySelectorAll('[data-reveal-chapter]')
       const $slider = document.getElementById('chapter-slider')
       const $out = document.getElementById('chapter-spoiler-slider-output')
+      const $tableSpoiler = document.querySelector('.Spoiler--TableSequences.Spoiler--active')
+
       $slider.addEventListener('input', (event) => {
+        $tableSpoiler.classList.remove('Spoiler--active')
+
         const chapter = Number(event.target.value)
         $out.textContent = chapter
 
