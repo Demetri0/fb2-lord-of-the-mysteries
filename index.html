@@ -838,7 +838,18 @@
       })
 
       function onLastCommitReceived(response) {
-        const lastCommit = new Date(response?.data?.commit?.author?.date)
+        console.log(response)
+        const latestCommit = response.data[0]
+        if (!latestCommit) {
+          console.error('No last commit found')
+          return;
+        }
+
+        const lastCommit = new Date(latestCommit?.commit?.committer?.date)
+        if (isNaN(lastCommit)) {
+          console.error('Last commit date is NaN', latestCommit)
+          return
+        }
         latestComitTime.current = lastCommit.valueOf()
 
         if (!lastDownloadTime) {
@@ -856,6 +867,7 @@
       }
 
     </script>
-    <script src="https://api.github.com/repos/demetri0/fb2-lord-of-the-mysteries/commits/master?callback=onLastCommitReceived"></script>
+    <script src="https://api.github.com/repos/Demetri0/fb2-lord-of-the-mysteries/commits?per_page=1&path=Lord%20Of%20The%20Mysteries.fb2&callback=onLastCommitReceived"></script>
+    <!-- <script src="https://api.github.com/repos/demetri0/fb2-lord-of-the-mysteries/commits/master?callback=onLastCommitReceived"></script> -->
   </body>
 </html>
