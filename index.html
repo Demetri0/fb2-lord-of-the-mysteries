@@ -835,6 +835,7 @@
         latestComitTime.current = lastCommit.valueOf()
 
         if (!lastDownloadTime) {
+          $btnDownload.classList.add('new-version') // TMP: Maybe remove after 2025.06.15
           return
         }
 
