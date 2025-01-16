@@ -130,14 +130,18 @@
         justify-content: center;
         margin-top: 32px;
       }
-      .new-version {
+
+      .new-version,
+      .first-version {
         position: relative;
         flex-direction: column;
         gap: 8px;
         padding-inline: 2em;
         border-color: var(--progress-color-ready);
       }
-      .new-version::after {
+      /* Remove '.first-version::after' after 2025.06.15 */
+      .new-version::after,
+      .first-version::after {
         content: "(New)";
         display: block;
 
@@ -856,14 +860,21 @@
       })
 
       function onLastCommitReceived(response) {
-        console.log(response)
+        const qs = new URLSearchParams(location.search)
+        if (qs.has('debug')) {
+          console.log(response)
+        }
+
         const latestCommit = response.data[0]
         if (!latestCommit) {
           console.error('No last commit found')
           return;
         }
 
-        const lastCommit = new Date(latestCommit?.commit?.committer?.date)
+        $btnDownload.dataset.version = latestCommit.sha
+        $btnDownload.dataset.updatedAt = latestCommit.commit?.committer?.date
+
+        const lastCommit = new Date(latestCommit.commit?.committer?.date)
         if (isNaN(lastCommit)) {
           console.error('Last commit date is NaN', latestCommit)
           return
@@ -871,7 +882,7 @@
         latestComitTime.current = lastCommit.valueOf()
 
         if (!lastDownloadTime) {
-          $btnDownload.classList.add('new-version') // TMP: Maybe remove after 2025.06.15
+          $btnDownload.classList.add('first-version')
           return
         }
 
