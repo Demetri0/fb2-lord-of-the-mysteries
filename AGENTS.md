@@ -18,6 +18,15 @@
 В файле `formatting.md` находится полезная информация по принятому форматированию.
 В файле `index.html` можно посмотреть карту всех Последовательностей (классов способностей)
 
+## Контекстные файлы для AI-агентов
+
+Чтобы не парсить весь fb2, используй готовые файлы в папке `context/`:
+
+- `context/index.md` — краткое описание каждой из 1432 глав (одно предложение на главу), сгруппировано по томам. Используй для навигации по сюжету и поиска нужной главы.
+- `context/sequences.md` — хронологический лог ключевых событий связанных с Последовательностями (Путями): раскрытие названий уровней (`Reveal`), повышения персонажей (`LevelUP`), вступления в Клуб Таро (`Join`).
+
+`generate_context.py` — скрипт которым эти файлы были сгенерированы (использует `qwen` CLI).
+
 ## Доступные утилиты для работы с XML и др.
 
 - `xmlstarlet`
@@ -185,8 +194,11 @@ $tree
 ├── notes.md       // Some chaotic user notes about book
 ├── README.md      // Some information about project
 ├── seq-events     // Attempt to collect information about key events in a book linked to chapters
-└── Sun Pathway.md // Some notes about namings in Sun Pathway
-
-3 directories, 1464 files
+├── Sun Pathway.md // Some notes about namings in Sun Pathway
+├── reader.html    // Browser-based fb2 reader (serve with python3 -m http.server 8080)
+├── generate_context.py // Script to regenerate context/ files using qwen CLI
+└── context/
+    ├── index.md       // One-line summary per chapter (all 1432 chapters)
+    └── sequences.md   // Chronological log of Sequence-related events
 
 ```
