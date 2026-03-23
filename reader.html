@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Повелитель Тайн — Читалка</title>
+  <style>
+    :root {
+      --bg: #1a1b1c;
+      --bg-sidebar: #141516;
+      --fg: rgba(255,255,255,0.82);
+      --fg-dim: rgba(255,255,255,0.4);
+      --accent: #a08060;
+      --border: rgba(255,255,255,0.08);
+      --sidebar-width: 300px;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: var(--bg);
+      color: var(--fg);
+      font-family: system-ui, -apple-system, sans-serif;
+    }
+
+    /* Layout */
+    #app { display: flex; height: 100vh; }
+
+    /* Sidebar */
+    #sidebar {
+      width: var(--sidebar-width);
+      min-width: var(--sidebar-width);
+      background: var(--bg-sidebar);
+      border-right: 1px solid var(--border);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    #sidebar-header {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+      font-size: 13px;
+      color: var(--fg-dim);
+      flex-shrink: 0;
+    }
+
+    #search {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--fg);
+      padding: 6px 8px;
+      font-size: 13px;
+      margin-top: 8px;
+      outline: none;
+    }
+    #search:focus { border-color: var(--accent); }
+
+    #toc {
+      overflow-y: auto;
+      flex: 1;
+      padding: 8px 0;
+    }
+
+    .toc-volume {
+      padding: 8px 16px 4px;
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent);
+      font-family: sans-serif;
+    }
+
+    .toc-chapter {
+      display: block;
+      padding: 5px 16px 5px 24px;
+      font-size: 13px;
+      color: var(--fg-dim);
+      cursor: pointer;
+      border: none;
+      background: none;
+      text-align: left;
+      width: 100%;
+      line-height: 1.4;
+      font-family: sans-serif;
+      transition: background 0.1s, color 0.1s;
+    }
+    .toc-chapter:hover { background: rgba(255,255,255,0.04); color: var(--fg); }
+    .toc-chapter.active { background: rgba(160,128,96,0.15); color: var(--accent); }
+
+    /* Main reading area */
+    #main {
+      flex: 1;
+      overflow-y: auto;
+      display: flex;
+      flex-direction: column;
+    }
+
+    #chapter-content {
+      max-width: 860px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    #chapter-title {
+      font-size: 1.5em;
+      font-weight: normal;
+      color: var(--accent);
+      margin-bottom: 2em;
+      text-align: center;
+    }
+
+    #chapter-text p {
+      margin: 0 0 0.85em;
+      line-height: 1.8;
+      font-size: 1.3em;
+    }
+
+    #chapter-text em { font-style: italic; color: rgba(255,255,255,0.5); }
+    #chapter-text strong { font-weight: bold; }
+
+    .empty-line { display: block; height: 0.85em; }
+
+    /* Nav buttons */
+    #nav-buttons {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 40px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .nav-btn {
+      padding: 8px 20px;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--fg-dim);
+      cursor: pointer;
+      font-size: 13px;
+      font-family: sans-serif;
+      transition: background 0.15s, color 0.15s;
+    }
+    .nav-btn:hover { background: rgba(255,255,255,0.1); color: var(--fg); }
+    .nav-btn:disabled { opacity: 0.2; cursor: default; }
+
+    /* Loading / welcome */
+    #status {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100%;
+      color: var(--fg-dim);
+      font-family: sans-serif;
+      font-size: 14px;
+    }
+
+    /* Toggle sidebar on mobile */
+    #toggle-btn {
+      display: none;
+      position: fixed;
+      bottom: 16px;
+      right: 16px;
+      z-index: 100;
+      background: var(--accent);
+      color: #1a1b1c;
+      border: none;
+      border-radius: 50%;
+      width: 44px;
+      height: 44px;
+      font-size: 20px;
+      cursor: pointer;
+    }
+
+    @media (max-width: 700px) {
+      #sidebar {
+        position: fixed;
+        top: 0; left: 0; bottom: 0;
+        z-index: 50;
+        transform: translateX(-100%);
+        transition: transform 0.2s;
+      }
+      #sidebar.open { transform: translateX(0); }
+      #toggle-btn { display: flex; align-items: center; justify-content: center; }
+    }
+  </style>
+</head>
+<body>
+<div id="app">
+  <nav id="sidebar">
+    <div id="sidebar-header">
+      <strong style="color:var(--fg)">Повелитель Тайн</strong>
+      <input id="search" type="search" placeholder="Поиск по главам…" />
+    </div>
+    <div id="toc"></div>
+  </nav>
+
+  <div id="main">
+    <div id="chapter-content">
+      <div id="status">Загрузка книги…</div>
+      <h2 id="chapter-title" style="display:none"></h2>
+      <div id="chapter-text"></div>
+      <div id="nav-buttons" style="display:none">
+        <button class="nav-btn" id="btn-prev">← Назад</button>
+        <button class="nav-btn" id="btn-next">Вперёд →</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<button id="toggle-btn" onclick="toggleSidebar()">☰</button>
+
+<script>
+const FB2_FILE = 'Lord Of The Mysteries.fb2';
+
+let chapters = []; // {title, volumeTitle, nodes}
+let currentIndex = -1;
+
+async function loadBook() {
+  const resp = await fetch(FB2_FILE);
+  const text = await resp.text();
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(text, 'application/xml');
+
+  const body = doc.querySelector('body');
+  chapters = [];
+
+  for (const volume of body.children) {
+    const volTitle = getTitle(volume);
+    for (const chapter of volume.children) {
+      if (chapter.tagName !== 'section') continue;
+      const chTitle = getTitle(chapter);
+      chapters.push({ title: chTitle, volumeTitle: volTitle, nodes: chapter });
+    }
+  }
+
+  buildTOC();
+  document.getElementById('status').style.display = 'none';
+
+  // Restore last position
+  const saved = localStorage.getItem('lotm-chapter');
+  showChapter(saved !== null ? parseInt(saved) : 0);
+}
+
+function getTitle(el) {
+  const t = el.querySelector(':scope > title > p');
+  return t ? t.textContent.trim() : '';
+}
+
+function buildTOC() {
+  const toc = document.getElementById('toc');
+  let lastVol = null;
+  chapters.forEach((ch, i) => {
+    if (ch.volumeTitle !== lastVol) {
+      lastVol = ch.volumeTitle;
+      const vol = document.createElement('div');
+      vol.className = 'toc-volume';
+      vol.textContent = ch.volumeTitle;
+      toc.appendChild(vol);
+    }
+    const btn = document.createElement('button');
+    btn.className = 'toc-chapter';
+    btn.textContent = ch.title;
+    btn.dataset.index = i;
+    btn.onclick = () => { showChapter(i); closeSidebarOnMobile(); };
+    toc.appendChild(btn);
+  });
+}
+
+function renderNodes(el) {
+  let html = '';
+  for (const node of el.childNodes) {
+    if (node.nodeType === Node.TEXT_NODE) {
+      html += escapeHtml(node.textContent);
+    } else if (node.nodeType === Node.ELEMENT_NODE) {
+      const tag = node.tagName.toLowerCase();
+      if (tag === 'p') {
+        html += '<p>' + renderNodes(node) + '</p>';
+      } else if (tag === 'emphasis') {
+        html += '<em>' + renderNodes(node) + '</em>';
+      } else if (tag === 'strong') {
+        html += '<strong>' + renderNodes(node) + '</strong>';
+      } else if (tag === 'empty-line') {
+        html += '<span class="empty-line"></span>';
+      } else if (tag === 'a') {
+        html += renderNodes(node);
+      } else if (tag === 'title') {
+        // skip — already shown as heading
+      } else {
+        html += renderNodes(node);
+      }
+    }
+  }
+  return html;
+}
+
+function escapeHtml(s) {
+  return s.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
+function showChapter(index) {
+  if (index < 0 || index >= chapters.length) return;
+  currentIndex = index;
+  localStorage.setItem('lotm-chapter', index);
+
+  const ch = chapters[index];
+
+  document.getElementById('chapter-title').textContent = ch.title;
+  document.getElementById('chapter-title').style.display = '';
+  document.getElementById('chapter-text').innerHTML = renderNodes(ch.nodes);
+  document.getElementById('nav-buttons').style.display = '';
+
+  document.getElementById('btn-prev').disabled = index === 0;
+  document.getElementById('btn-next').disabled = index === chapters.length - 1;
+
+  document.getElementById('main').scrollTop = 0;
+
+  // Update active TOC item
+  document.querySelectorAll('.toc-chapter').forEach(btn => {
+    btn.classList.toggle('active', parseInt(btn.dataset.index) === index);
+  });
+
+  // Scroll TOC to active item
+  const active = document.querySelector('.toc-chapter.active');
+  if (active) active.scrollIntoView({ block: 'nearest' });
+}
+
+document.getElementById('btn-prev').onclick = () => showChapter(currentIndex - 1);
+document.getElementById('btn-next').onclick = () => showChapter(currentIndex + 1);
+
+// Search
+document.getElementById('search').addEventListener('input', e => {
+  const q = e.target.value.toLowerCase();
+  document.querySelectorAll('.toc-chapter').forEach(btn => {
+    btn.style.display = btn.textContent.toLowerCase().includes(q) ? '' : 'none';
+  });
+  document.querySelectorAll('.toc-volume').forEach(vol => {
+    const next = vol.nextElementSibling;
+    // show volume if any chapter below it is visible
+    let sib = vol.nextElementSibling;
+    let anyVisible = false;
+    while (sib && sib.classList.contains('toc-chapter')) {
+      if (sib.style.display !== 'none') anyVisible = true;
+      sib = sib.nextElementSibling;
+    }
+    vol.style.display = anyVisible ? '' : 'none';
+  });
+});
+
+// Keyboard navigation
+document.addEventListener('keydown', e => {
+  if (e.target.tagName === 'INPUT') return;
+  if (e.key === 'ArrowRight' || e.key === 'ArrowDown') showChapter(currentIndex + 1);
+  if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') showChapter(currentIndex - 1);
+});
+
+function toggleSidebar() {
+  document.getElementById('sidebar').classList.toggle('open');
+}
+function closeSidebarOnMobile() {
+  if (window.innerWidth <= 700) document.getElementById('sidebar').classList.remove('open');
+}
+
+loadBook().catch(err => {
+  document.getElementById('status').textContent = 'Ошибка загрузки: ' + err.message;
+});
+</script>
+</body>
+</html>
