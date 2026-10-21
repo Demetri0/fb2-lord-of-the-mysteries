@@ -86,7 +86,9 @@ def add_navigation(pages: list[str]):
 
         links = []
         links.append(f'<a href="{pages[i - 1]}">← Назад</a>' if i > 0 else "<span></span>")
-        links.append('<a href="index.html">Оглавление</a>')
+        # "./", а не "index.html": некоторые серверы (например serve) редиректят
+        # index.html на папку без слеша, и относительные ссылки оглавления ломаются
+        links.append('<a href="./">Оглавление</a>')
         links.append(f'<a href="{pages[i + 1]}">Вперёд →</a>' if i + 1 < len(pages) else "<span></span>")
         nav = (
             f'{NAV_MARKER}<nav class="read-nav" style="display:flex;justify-content:space-between;'
