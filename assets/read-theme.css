@@ -377,6 +377,57 @@ summary:focus-visible {
   margin: 0 0 0.75em;
 }
 
+.share-panel {
+  margin-top: 1em;
+  padding: 1em;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+/* Тёмный код на белом в обеих темах: инвертированные QR читают не все камеры */
+.share-qr {
+  width: min(220px, 60vw);
+  margin: 0 auto;
+  padding: 8px;
+  background: #fff;
+  border-radius: var(--radius);
+  line-height: 0;
+}
+
+.share-qr:empty {
+  display: none;
+}
+
+.share-qr svg {
+  width: 100%;
+  height: auto;
+}
+
+.share-qr svg path,
+.share-qr svg rect[fill="black"] {
+  fill: #000;
+}
+
+.share-hint {
+  margin: 0.75em 0 0.5em;
+  text-indent: 0;
+  font-size: 0.75em;
+  color: var(--fg-muted);
+}
+
+.share-url {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.75em;
+}
+
 .resume-label {
   font-size: 0.75em;
   color: var(--accent);

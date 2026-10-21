@@ -168,22 +168,60 @@
     return true;
   }
 
-  function shareLink(status) {
+  // QR-код рисует qrcode-generator (MIT), грузится только по нажатию кнопки
+  var QR_SRC = "https://cdnjs.cloudflare.com/ajax/libs/qrcode-generator/1.4.4/qrcode.min.js";
+  var QR_SRI = "sha512-ZDSPMa/JM1D+7kdg2x3BsruQ6T/JpJo3jWDWkCZsP+5yVyp1KfESqLI+7RqB5k24F7p2cV7i2YHh/890y6P6Sw==";
+  var qrLoading = null;
+
+  function loadQr() {
+    if (window.qrcode) return Promise.resolve(window.qrcode);
+    if (!qrLoading) {
+      qrLoading = new Promise(function (resolve, reject) {
+        var script = document.createElement("script");
+        script.src = QR_SRC;
+        script.integrity = QR_SRI;
+        script.crossOrigin = "anonymous";
+        script.onload = function () { resolve(window.qrcode); };
+        script.onerror = function () { qrLoading = null; reject(); };
+        document.head.appendChild(script);
+      });
+    }
+    return qrLoading;
+  }
+
+  function shareLink(panel, status) {
     var url = location.origin + location.pathname.replace(/[^/]*$/, "") + "?sync=" + encodeSync(load());
 
-    function show(text) {
-      status.textContent = text;
-    }
-
+    // Телефон: системное «Поделиться» удобнее QR-кода на его же экране
     if (navigator.share && matchMedia("(pointer: coarse)").matches) {
       navigator.share({ title: "Повелитель Тайн — продолжить чтение", url: url }).catch(function () {});
-    } else if (navigator.clipboard && window.isSecureContext) {
+      return;
+    }
+
+    // Компьютер, телевизор: QR-код для телефона и ссылка для копирования
+    var input = panel.querySelector(".share-url");
+    var qrBox = panel.querySelector(".share-qr");
+    input.value = url;
+    panel.hidden = false;
+    qrBox.textContent = "";
+
+    loadQr().then(
+      function (qrcode) {
+        var qr = qrcode(0, "M");
+        qr.addData(url);
+        qr.make();
+        qrBox.innerHTML = qr.createSvgTag({ cellSize: 4, margin: 4, scalable: true });
+      },
+      function () { qrBox.hidden = true; }
+    );
+
+    if (navigator.clipboard && window.isSecureContext) {
       navigator.clipboard.writeText(url).then(
-        function () { show("Ссылка скопирована — откройте её на другом устройстве"); },
-        function () { window.prompt("Скопируйте ссылку:", url); }
+        function () { status.textContent = "Ссылка скопирована"; },
+        function () { input.select(); }
       );
     } else {
-      window.prompt("Скопируйте ссылку:", url);
+      input.select();
     }
   }
 
@@ -231,7 +269,12 @@
         '<span class="resume-title"></span></a>' +
         '<button type="button" class="share-btn">На другом<br/>устройстве</button>' +
         "</div>" +
-        '<p class="share-status" aria-live="polite"></p>';
+        '<p class="share-status" aria-live="polite"></p>' +
+        '<div class="share-panel" hidden="hidden">' +
+        '<div class="share-qr"></div>' +
+        '<p class="share-hint">Наведите камеру телефона на код или откройте ссылку на другом устройстве</p>' +
+        '<input class="share-url" type="url" readonly="readonly" aria-label="Ссылка для продолжения чтения"/>' +
+        "</div>";
 
       if (link) {
         link.classList.add("is-current");
@@ -252,7 +295,7 @@
       resume.querySelector(".resume-title").textContent = title;
       var share = resume.querySelector(".share-btn");
       share.addEventListener("click", function () {
-        shareLink(resume.querySelector(".share-status"));
+        shareLink(resume.querySelector(".share-panel"), resume.querySelector(".share-status"));
       });
     }
     resume.hidden = false;
