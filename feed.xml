@@ -6,7 +6,7 @@
   <id>urn:uuid:18fdc917-2b16-4f1a-b85f-26bf75005342</id>
 
   <title>Lord of the Mysteries</title>
-  <updated>2025-01-15T02:00:00Z</updated>
+  <updated>2026-10-21T16:28:45Z</updated>
   <author>
     <name>Demetrio</name>
     <uri>https://demetri0.github.io/fb2-lord-of-the-mysteries/</uri>
@@ -15,7 +15,7 @@
   <entry>
     <title>Повелитель Тайн</title>
     <id>urn:uuid:622c9320-8de0-4af1-9900-c82d58183cc4</id>
-    <updated>2025-01-15T02:00:00Z</updated>
+    <updated>2026-10-21T16:28:45Z</updated>
     <author>
       <name>Каракатица которая любит нырять</name>
       <uri>http://opds-spec.org/authors/1285</uri>
@@ -23,6 +23,13 @@
     <dc:language>ru</dc:language>
     <dc:issued>2023</dc:issued>
     <summary>После переселения в мир пара и машин, главный герой Клейн Моретти всё больше запутывается в своём путешествии по этому странному сверхъестественному миру, желая найти путь назад. В процессе изучения магической медицины, гадания, запечатанных предметов, всего сверхъестественного и отбиваясь от всякой чертовщины, он случайно создал легенду о «Шуте»!</summary>
+
+    <link rel="http://opds-spec.org/image"
+          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/read/images/img00001.jpg"
+          type="image/jpeg"/>
+    <link rel="http://opds-spec.org/image/thumbnail"
+          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/read/images/img00001.jpg"
+          type="image/jpeg"/>
 
     <link rel="http://opds-spec.org/acquisition"
           href="https://demetri0.github.io/fb2-lord-of-the-mysteries/Lord%20Of%20The%20Mysteries.fb2"
