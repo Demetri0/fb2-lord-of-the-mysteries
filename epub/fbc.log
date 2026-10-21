@@ -1,0 +1,4 @@
+2026-10-21T21:46:15.443+0500	DEBUG	fbc	fbc/main.go:61	Program started	{"args": ["/tmp/claude-1000/-home-d3i0-src-fb2-lord-of-the-mysteries/3777a6a1-facd-4bbd-8895-8a322ab50165/scratchpad/fbc/fbc", "dumpconfig"], "ver": "1.9.4", "runtime": "go1.27.3", "hash": "d20143e808844c5ef61062645befeff31e5c97cb"}
+2026-10-21T21:46:15.443+0500	INFO	fbc	fbc/main.go:73	Using defaults (no configuration file)
+2026-10-21T21:46:15.444+0500	INFO	fbc	fbc/main.go:280	Outputting configuration	{"state": "actual", "file": "STDOUT"}
+2026-10-21T21:46:15.444+0500	DEBUG	fbc	fbc/main.go:82	Program ended	{"elapsed": "8.202232ms", "parsed args": ["dumpconfig"]}
