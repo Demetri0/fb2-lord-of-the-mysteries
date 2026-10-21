@@ -239,7 +239,6 @@ $tree
 │   ├── bg.mp4
 │   ├── bg.webm
 │   ├── favicon.png
-│   ├── og-image.jpg
 │   ├── poster.webp
 │   ├── read-reader.js // Source of read/reader.js (progress, continue, sync)
 │   └── read-theme.css // Source of read/theme.css (reading theme)
