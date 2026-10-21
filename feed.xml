@@ -26,6 +26,6 @@
 
     <link rel="http://opds-spec.org/acquisition"
           href="https://demetri0.github.io/fb2-lord-of-the-mysteries/Lord%20Of%20The%20Mysteries.fb2"
-          type="application/fb2"/>
+          type="application/x-fictionbook+xml"/>
   </entry>
 </feed>
