@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """
 Добавляет предупреждение об устаревшей версии вверх каждой страницы в epub/
+и запрещает её индексацию поисковиками (meta robots noindex)
 
 Предупреждение ведёт на ту же главу в актуальной веб-версии read/
 (соответствие ищется по заголовку главы), а если глава не найдена — на оглавление.
@@ -22,6 +23,8 @@ READ_DIR = Path("read")
 
 BEGIN = "<!-- outdated-warning -->"
 END = "<!-- /outdated-warning -->"
+
+NOINDEX = '<meta name="robots" content="noindex"/>'
 
 STYLE = (
     "margin:0 0 1em;padding:.75em 1em;border:1px solid #e0b84c;border-radius:6px;"
@@ -74,6 +77,8 @@ def main():
     for path in sorted(EPUB_DIR.glob("*.html")):
         text = path.read_text(encoding="utf-8")
         text = re.sub(re.escape(BEGIN) + r".*?" + re.escape(END), "", text, flags=re.S)
+        if NOINDEX not in text:
+            text = text.replace("<head>", "<head>\n    " + NOINDEX, 1)
 
         m = re.search(r"<h[1-3][^>]*>(.*?)</h[1-3]>", text, re.S)
         target = pages.get(chapter_key(normalize(m.group(1)))) if m else None

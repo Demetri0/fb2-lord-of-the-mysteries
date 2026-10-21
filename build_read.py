@@ -35,6 +35,8 @@ NAV_MARKER = "<!-- read-nav -->"
 # Общая шапка для страниц глав и оглавления (XHTML, поэтому & экранирован)
 HEAD_EXTRA = (
     '<meta name="viewport" content="width=device-width, initial-scale=1"/>'
+    # Веб-версия для чтения, а не для поиска: в поиске должна быть главная
+    '<meta name="robots" content="noindex"/>'
     '<link rel="icon" href="../assets/favicon.png"/>'
     '<link rel="preconnect" href="https://fonts.googleapis.com"/>'
     '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>'
@@ -179,6 +181,11 @@ def main():
 
     pages = spine_pages()
     add_navigation(pages)
+    # Служебные страницы epub (обложка, nav.xhtml) тоже доступны по ссылке
+    for path in READ_DIR.glob("*.xhtml"):
+        if path.name not in pages:
+            text = path.read_text(encoding="utf-8")
+            path.write_text(text.replace("<head>", '<head><meta name="robots" content="noindex"/>', 1), encoding="utf-8")
     write_index(pages)
     print(f"Готово: {len(pages)} страниц в {READ_DIR}/")
 
