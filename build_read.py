@@ -29,6 +29,7 @@ FB2_FILE = Path("Lord Of The Mysteries.fb2")
 READ_DIR = Path("read")
 THEME_FILE = Path("assets/read-theme.css")
 READER_FILE = Path("assets/read-reader.js")
+FBC_CONFIG = Path("fbc.yaml")
 
 NAV_MARKER = "<!-- read-nav -->"
 
@@ -53,7 +54,8 @@ HEAD_TAIL = (
 def convert(fbc: str, epub_file: Path):
     """Конвертирует fb2 в epub3."""
     subprocess.run(
-        [fbc, "convert", "--to", "epub3", "--ow", "-o", str(epub_file), str(FB2_FILE)],
+        [fbc, "-c", str(FBC_CONFIG), "convert", "--to", "epub3", "--ow",
+         "-o", str(epub_file), str(FB2_FILE)],
         check=True,
     )
 

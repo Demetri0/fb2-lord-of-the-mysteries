@@ -15,6 +15,8 @@ description: Use when the fb2 book changed and the online version must be update
 | Тема чтения | `assets/read-theme.css` |
 | Прогресс, «Продолжить», sync/QR | `assets/read-reader.js` |
 | Навигация, `<head>`, оглавление | `build_read.py` |
+| Настройки конвертации (обложка) | `fbc.yaml` |
+| Обложка | `assets/book/` (см. «Обложка» в `AGENTS.md`), затем fb2 |
 | Плашка в `epub/` | `inject_epub_warning.py` |
 
 Файлы внутри `read/` руками не правят: следующая сборка удаляет папку.

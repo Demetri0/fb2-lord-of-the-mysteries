@@ -1,0 +1,9 @@
+# Настройки fbc для build_read.py (остальное — значения fbc по умолчанию,
+# смотреть их: fbc dumpconfig --default -)
+version: 1
+document:
+    images:
+        cover:
+            # По умолчанию fbc растягивает обложку до 1264x1680 и пережимает
+            # в JPEG 95% (~1 МБ). Обложка в fb2 уже подготовлена — берём как есть.
+            resize: none
