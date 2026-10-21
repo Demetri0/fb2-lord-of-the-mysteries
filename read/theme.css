@@ -293,6 +293,81 @@ summary:focus-visible {
   color: var(--accent);
 }
 
+/* Прочитанные главы приглушены и отмечены галочкой */
+.toc li a.is-read {
+  color: var(--fg-muted);
+}
+
+.toc li a.is-read::after {
+  content: " ✓";
+  color: var(--accent);
+}
+
+.toc a.is-current {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Продолжить чтение и прогресс (заполняет reader.js) ── */
+
+.resume {
+  margin: 0 0 2em;
+  font-family: var(--font-ui);
+}
+
+.resume-btn {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.9em 1.25em;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg);
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.15s;
+}
+
+.resume-btn:hover {
+  background: var(--btn-bg-hover);
+}
+
+.resume-label {
+  font-size: 0.75em;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.resume-title {
+  font-family: var(--font-text);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.progress {
+  height: 6px;
+  margin-top: 1.25em;
+  border-radius: 3px;
+  background: var(--divider);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  min-width: 2px;
+  background: var(--accent);
+}
+
+.progress-text {
+  margin: 0.5em 0 0;
+  text-indent: 0;
+  text-align: center;
+  font-size: 0.75em;
+  color: var(--fg-muted);
+}
+
 /* ── Устройства ────────────────────────────────────────── */
 
 /* Сенсорные экраны: пункты оглавления крупнее под палец */
@@ -314,7 +389,8 @@ summary:focus-visible {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .read-nav a {
+  .read-nav a,
+  .resume-btn {
     transition: none;
   }
 }

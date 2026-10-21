@@ -28,6 +28,7 @@ from pathlib import Path
 FB2_FILE = Path("Lord Of The Mysteries.fb2")
 READ_DIR = Path("read")
 THEME_FILE = Path("assets/read-theme.css")
+READER_FILE = Path("assets/read-reader.js")
 
 NAV_MARKER = "<!-- read-nav -->"
 
@@ -40,7 +41,11 @@ HEAD_EXTRA = (
     '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
     'family=Lora:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/>'
 )
-THEME_LINK = '<link rel="stylesheet" type="text/css" href="theme.css"/>'
+# Подключается в конце <head>, чтобы тема перекрывала stylesheet.css от fbc
+HEAD_TAIL = (
+    '<link rel="stylesheet" type="text/css" href="theme.css"/>'
+    '<script src="reader.js" defer="defer"></script>'
+)
 
 
 def convert(fbc: str, epub_file: Path):
@@ -72,6 +77,7 @@ def unpack(epub_file: Path):
     # Сам epub тоже кладём рядом, чтобы его можно было скачать
     shutil.copy(epub_file, READ_DIR / "book.epub")
     shutil.copy(THEME_FILE, READ_DIR / "theme.css")
+    shutil.copy(READER_FILE, READ_DIR / "reader.js")
 
 
 def spine_pages() -> list[str]:
@@ -108,7 +114,7 @@ def add_navigation(pages: list[str]):
         # lang нужен для переносов (hyphens: auto) и правильного озвучивания
         text = text.replace("<html ", '<html lang="ru" xml:lang="ru" ', 1)
         text = text.replace("<head>", "<head>" + HEAD_EXTRA, 1)
-        text = text.replace("</head>", THEME_LINK + "</head>", 1)
+        text = text.replace("</head>", HEAD_TAIL + "</head>", 1)
         text = re.sub(r"(<body[^>]*>)", lambda m: m.group(1) + nav, text, count=1)
         text = text.replace("</body>", nav + "</body>", 1)
         path.write_text(text, encoding="utf-8")
@@ -137,7 +143,7 @@ def write_index(pages: list[str]):
 <head>
   <meta charset="utf-8"/>
   {HEAD_EXTRA}
-  {THEME_LINK}
+  {HEAD_TAIL}
   <title>Повелитель Тайн — Оглавление</title>
   <script>
     // Ссылки на главы относительные: если оглавление открыто как .../read
@@ -151,6 +157,7 @@ def write_index(pages: list[str]):
   <main class="toc">
     <h1>Повелитель Тайн</h1>
     <p class="toc-links"><a href="book.epub">Скачать epub</a> · <a href="../">На главную</a></p>
+    <div class="resume" id="resume" hidden="hidden"></div>
     {"".join(items)}
   </main>
 </body>
