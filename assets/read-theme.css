@@ -315,7 +315,13 @@ summary:focus-visible {
   font-family: var(--font-ui);
 }
 
+.resume-row {
+  display: flex;
+  gap: 0.5em;
+}
+
 .resume-btn {
+  flex: 1;
   display: flex;
   flex-direction: column;
   gap: 0.2em;
@@ -329,8 +335,46 @@ summary:focus-visible {
   transition: background-color 0.15s;
 }
 
-.resume-btn:hover {
+.resume-btn:hover,
+.share-btn:hover {
   background: var(--btn-bg-hover);
+}
+
+.share-btn {
+  flex: 0 0 auto;
+  min-width: 44px;
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 0.75em;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.share-btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.share-status:empty {
+  display: none;
+}
+
+.share-status,
+.resume-notice {
+  margin: 0.5em 0 0;
+  text-indent: 0;
+  text-align: center;
+  font-size: 0.75em;
+  color: var(--accent);
+}
+
+.resume-notice {
+  margin: 0 0 0.75em;
 }
 
 .resume-label {
@@ -390,7 +434,8 @@ summary:focus-visible {
 
 @media (prefers-reduced-motion: reduce) {
   .read-nav a,
-  .resume-btn {
+  .resume-btn,
+  .share-btn {
     transition: none;
   }
 }

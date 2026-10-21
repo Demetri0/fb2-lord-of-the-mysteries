@@ -29,14 +29,6 @@
 
   var page = location.pathname.split("/").pop();
 
-  // Страницы глав — XHTML, а XML-парсер Chrome игнорирует defer
-  // и выполняет скрипт прямо в <head>, до появления текста
-  if (document.readyState === "loading") {
-    document.addEventListener("DOMContentLoaded", init);
-  } else {
-    init();
-  }
-
   function init() {
     if (/^index\d+\.xhtml$/.test(page)) {
       initChapter();
@@ -110,9 +102,95 @@
     remember();
   }
 
+  // ── Перенос прогресса ссылкой ───────────────────────────
+  //
+  // ?sync=1.<страница>.<абзац>.<дочитана 0|1>.<битовая маска прочитанных>
+  // Страницы передаются только номерами: имя файла собирается заново,
+  // поэтому чужая ссылка не может подсунуть произвольный href.
+
+  var PAGE_RE = /^index(\d{5})\.xhtml$/;
+
+  function pageName(n) {
+    return "index" + ("0000" + n).slice(-5) + ".xhtml";
+  }
+
+  function pageNumber(name) {
+    var m = PAGE_RE.exec(name || "");
+    return m ? parseInt(m[1], 10) : 0;
+  }
+
+  function encodeSync(state) {
+    var nums = state.done.map(pageNumber).filter(Boolean);
+    var bytes = new Uint8Array(Math.ceil((Math.max.apply(null, nums.concat(0)) + 1) / 8));
+    nums.forEach(function (n) { bytes[n >> 3] |= 1 << (n & 7); });
+    var b64 = btoa(String.fromCharCode.apply(null, bytes))
+      .replace(/\+/g, "-").replace(/\//g, "_").replace(/=+$/, "");
+    var last = state.last || {};
+    return ["1", pageNumber(last.page), last.para || 0, last.finished ? 1 : 0, b64].join(".");
+  }
+
+  function decodeSync(value) {
+    var parts = (value || "").split(".");
+    if (parts.length !== 5 || parts[0] !== "1") return null;
+    var done = [];
+    try {
+      var bin = atob(parts[4].replace(/-/g, "+").replace(/_/g, "/"));
+      for (var i = 0; i < bin.length; i++) {
+        for (var bit = 0; bit < 8; bit++) {
+          if (bin.charCodeAt(i) & (1 << bit)) done.push(pageName(i * 8 + bit));
+        }
+      }
+    } catch (e) {
+      return null;
+    }
+    var page = parseInt(parts[1], 10);
+    return {
+      last: page > 0 ? { page: pageName(page), para: parseInt(parts[2], 10) || 0, finished: parts[3] === "1" } : null,
+      done: done,
+    };
+  }
+
+  // Открыли ссылку с другого устройства: объединяем прочитанное, место берём из ссылки
+  function importSync() {
+    var match = /[?&]sync=([^&#]*)/.exec(location.search);
+    if (!match) return false;
+    history.replaceState(null, "", location.pathname + location.hash);
+
+    var incoming = decodeSync(decodeURIComponent(match[1]));
+    if (!incoming) return false;
+
+    var state = load();
+    incoming.done.forEach(function (p) {
+      if (state.done.indexOf(p) === -1) state.done.push(p);
+    });
+    if (incoming.last) state.last = incoming.last;
+    save(state);
+    return true;
+  }
+
+  function shareLink(status) {
+    var url = location.origin + location.pathname.replace(/[^/]*$/, "") + "?sync=" + encodeSync(load());
+
+    function show(text) {
+      status.textContent = text;
+    }
+
+    if (navigator.share && matchMedia("(pointer: coarse)").matches) {
+      navigator.share({ title: "Повелитель Тайн — продолжить чтение", url: url }).catch(function () {});
+    } else if (navigator.clipboard && window.isSecureContext) {
+      navigator.clipboard.writeText(url).then(
+        function () { show("Ссылка скопирована — откройте её на другом устройстве"); },
+        function () { window.prompt("Скопируйте ссылку:", url); }
+      );
+    } else {
+      window.prompt("Скопируйте ссылку:", url);
+    }
+  }
+
   // ── Оглавление ──────────────────────────────────────────
 
   function initToc() {
+    var imported = importSync();
     var state = load();
     var links = Array.prototype.slice.call(document.querySelectorAll(".toc li a"));
     var hrefs = links.map(function (a) { return a.getAttribute("href"); });
@@ -130,7 +208,7 @@
     if (!state.last && !readCount) return;
 
     // Куда продолжать: дочитанная глава → следующая по оглавлению
-    var target = state.last ? state.last.page : null;
+    var target = state.last && PAGE_RE.test(state.last.page) ? state.last.page : null;
     var hash = "#continue";
     if (state.last && state.last.finished) {
       var i = hrefs.indexOf(target);
@@ -141,15 +219,19 @@
     }
 
     var resume = document.getElementById("resume");
-    var html = "";
+    var html = imported ? '<p class="resume-notice">Прогресс с другого устройства перенесён</p>' : "";
 
     if (target) {
       var link = document.querySelector('.toc a[href="' + target + '"]');
       var title = link ? link.textContent : "";
       html +=
+        '<div class="resume-row">' +
         '<a class="resume-btn" href="' + target + hash + '">' +
         '<span class="resume-label">Продолжить чтение</span>' +
-        '<span class="resume-title"></span></a>';
+        '<span class="resume-title"></span></a>' +
+        '<button type="button" class="share-btn">На другом<br/>устройстве</button>' +
+        "</div>" +
+        '<p class="share-status" aria-live="polite"></p>';
 
       if (link) {
         link.classList.add("is-current");
@@ -166,7 +248,21 @@
       '<p class="progress-text">Прочитано ' + readCount + " из " + links.length + " глав · " + percentText + "</p>";
 
     resume.innerHTML = html;
-    if (target) resume.querySelector(".resume-title").textContent = title;
+    if (target) {
+      resume.querySelector(".resume-title").textContent = title;
+      var share = resume.querySelector(".share-btn");
+      share.addEventListener("click", function () {
+        shareLink(resume.querySelector(".share-status"));
+      });
+    }
     resume.hidden = false;
+  }
+
+  // Страницы глав — XHTML, а XML-парсер Chrome игнорирует defer
+  // и выполняет скрипт прямо в <head>, до появления текста
+  if (document.readyState === "loading") {
+    document.addEventListener("DOMContentLoaded", init);
+  } else {
+    init();
   }
 })();
