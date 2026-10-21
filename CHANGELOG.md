@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 ### Added
 - `read/` — актуальная веб-версия книги по главам и `book.epub` для скачивания, собирается из fb2 через fbc (fb2cng)
 - `build_read.py` — скрипт сборки `read/`
+- `assets/read-theme.css` — тема для чтения `read/`: светлая/тёмная по системе, адаптивный размер от телефона до ТВ, переносы
 - `inject_epub_warning.py` — скрипт, добавляющий в старый `epub/` предупреждение со ссылкой на ту же главу в `read/`
 
 ### Changed

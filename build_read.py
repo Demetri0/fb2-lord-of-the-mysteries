@@ -27,8 +27,20 @@ from pathlib import Path
 
 FB2_FILE = Path("Lord Of The Mysteries.fb2")
 READ_DIR = Path("read")
+THEME_FILE = Path("assets/read-theme.css")
 
 NAV_MARKER = "<!-- read-nav -->"
+
+# Общая шапка для страниц глав и оглавления (XHTML, поэтому & экранирован)
+HEAD_EXTRA = (
+    '<meta name="viewport" content="width=device-width, initial-scale=1"/>'
+    '<link rel="icon" href="../assets/favicon.png"/>'
+    '<link rel="preconnect" href="https://fonts.googleapis.com"/>'
+    '<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous"/>'
+    '<link rel="stylesheet" href="https://fonts.googleapis.com/css2?'
+    'family=Lora:ital,wght@0,400;0,600;1,400;1,600&amp;display=swap"/>'
+)
+THEME_LINK = '<link rel="stylesheet" type="text/css" href="theme.css"/>'
 
 
 def convert(fbc: str, epub_file: Path):
@@ -59,6 +71,7 @@ def unpack(epub_file: Path):
 
     # Сам epub тоже кладём рядом, чтобы его можно было скачать
     shutil.copy(epub_file, READ_DIR / "book.epub")
+    shutil.copy(THEME_FILE, READ_DIR / "theme.css")
 
 
 def spine_pages() -> list[str]:
@@ -77,7 +90,7 @@ def page_info(page: str) -> tuple[str, bool]:
 
 
 def add_navigation(pages: list[str]):
-    """Добавляет на каждую страницу viewport и ссылки назад / оглавление / вперёд."""
+    """Добавляет на каждую страницу язык, тему и ссылки назад / оглавление / вперёд."""
     for i, page in enumerate(pages):
         path = READ_DIR / page
         text = path.read_text(encoding="utf-8")
@@ -90,16 +103,12 @@ def add_navigation(pages: list[str]):
         # index.html на папку без слеша, и относительные ссылки оглавления ломаются
         links.append('<a href="./">Оглавление</a>')
         links.append(f'<a href="{pages[i + 1]}">Вперёд →</a>' if i + 1 < len(pages) else "<span></span>")
-        nav = (
-            f'{NAV_MARKER}<nav class="read-nav" style="display:flex;justify-content:space-between;'
-            f'gap:1em;margin:1em 0;font-family:sans-serif">{"".join(links)}</nav>'
-        )
+        nav = f'{NAV_MARKER}<nav class="read-nav">{"".join(links)}</nav>'
 
-        text = text.replace(
-            "<head>",
-            '<head><meta name="viewport" content="width=device-width, initial-scale=1"/>',
-            1,
-        )
+        # lang нужен для переносов (hyphens: auto) и правильного озвучивания
+        text = text.replace("<html ", '<html lang="ru" xml:lang="ru" ', 1)
+        text = text.replace("<head>", "<head>" + HEAD_EXTRA, 1)
+        text = text.replace("</head>", THEME_LINK + "</head>", 1)
         text = re.sub(r"(<body[^>]*>)", lambda m: m.group(1) + nav, text, count=1)
         text = text.replace("</body>", nav + "</body>", 1)
         path.write_text(text, encoding="utf-8")
@@ -127,26 +136,23 @@ def write_index(pages: list[str]):
 <html lang="ru">
 <head>
   <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  {HEAD_EXTRA}
+  {THEME_LINK}
   <title>Повелитель Тайн — Оглавление</title>
   <script>
     // Ссылки на главы относительные: если оглавление открыто как .../read
     // (без слеша, так делают некоторые серверы, например serve), они ведут мимо папки
-    if (!location.pathname.endsWith("/")) {{
+    if (location.protocol !== "file:" && !location.pathname.endsWith("/")) {{
       location.replace(location.pathname.replace(/\\/index(\\.html)?$/, "") + "/" + location.search + location.hash);
     }}
   </script>
-  <style>
-    :root {{ color-scheme: light dark; }}
-    body {{ max-width: 48em; margin: 0 auto; padding: 1em 16px; font-family: sans-serif; line-height: 1.5; }}
-    summary {{ font-size: 1.2em; font-weight: bold; margin: .5em 0; cursor: pointer; }}
-    ol {{ list-style: none; padding-left: 1em; }}
-  </style>
 </head>
 <body>
-  <h1>Повелитель Тайн</h1>
-  <p><a href="book.epub">Скачать epub</a> · <a href="../">На главную</a></p>
-  {"".join(items)}
+  <main class="toc">
+    <h1>Повелитель Тайн</h1>
+    <p class="toc-links"><a href="book.epub">Скачать epub</a> · <a href="../">На главную</a></p>
+    {"".join(items)}
+  </main>
 </body>
 </html>
 """,
