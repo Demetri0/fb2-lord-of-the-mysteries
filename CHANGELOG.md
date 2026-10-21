@@ -13,6 +13,9 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `assets/read-theme.css` — тема для чтения `read/`: светлая/тёмная по системе, адаптивный размер от телефона до ТВ, переносы
 - `.agents/skills/regenerating-epub/` — скилл для агентов: пошаговая перегенерация `read/` и `epub/` с проверками
 - `AGENTS.md`: индекс всех скриптов — что делает каждый и как работает
+- Новая обложка книги (в fb2, `read/`, `book.epub`, OPDS-каталоге) и новая картинка для соцсетей; оригиналы в `assets/book/original/`
+- `fbc.yaml` — fbc больше не растягивает и не пережимает обложку
+- `feed.xml`: обложка, миниатюра, ссылка для автообнаружения каталога в `index.html`; исправлен MIME-тип fb2
 - `inject_epub_warning.py` — скрипт, добавляющий в старый `epub/` предупреждение со ссылкой на ту же главу в `read/`
 
 ### Changed
