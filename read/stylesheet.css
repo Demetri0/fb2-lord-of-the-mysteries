@@ -1,0 +1,634 @@
+@media fbc-pdf {
+  body {
+    font-size: 120%;
+    line-height: 130%;
+  }
+}
+
+p {
+  margin: 0;
+  orphans: 1;
+  text-align: justify;
+  text-indent: 1em;
+  widows: 1;
+}
+
+@media amzn-mobi {
+  p {
+    margin: 0 -8pt 0.3em -8pt;
+    text-align: justify;
+    text-indent: 1em;
+  }
+}
+
+@media amzn-kf8 and not amzn-et {
+  p {
+    margin: 0 -8pt 0.3em -8pt;
+    text-align: justify;
+    text-indent: 1em;
+  }
+}
+
+code {
+  font-family: monospace;
+  font-size: 70%;
+  text-align: left;
+  white-space: pre-wrap;
+}
+
+p code {
+  text-align: left;
+}
+
+p.has-dropcap {
+  margin: 0;
+  text-indent: 0;
+}
+
+p.has-dropcap .dropcap {
+  float: left;
+  font-size: 3.2em;
+  font-weight: bold;
+  line-height: 1;
+  padding-right: 0.1em;
+}
+
+h1 {
+  font-size: 140%;
+}
+
+h2 {
+  font-size: 120%;
+}
+
+h3 {
+  font-size: 120%;
+}
+
+h4 {
+  font-size: 120%;
+}
+
+h5 {
+  font-size: 120%;
+}
+
+h6 {
+  font-size: 120%;
+}
+
+.body-title {
+  margin: 2em 0 1em 0;
+  page-break-after: avoid;
+  page-break-before: always;
+  page-break-inside: avoid;
+}
+
+.chapter-title {
+  margin: 2em 0 1em 0;
+  page-break-after: avoid;
+  page-break-before: always;
+  page-break-inside: avoid;
+}
+
+.section-title {
+  margin: 2em 0 1em 0;
+  page-break-after: avoid;
+  page-break-inside: avoid;
+}
+
+.section-title-h2 {
+  page-break-before: always;
+}
+
+.body-title-header {
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0;
+}
+
+.body-title-header-emptyline {
+  display: block;
+  font-weight: bold;
+  margin: 0.8em 0;
+  text-align: center;
+}
+
+.body-title-header-break {
+  display: block;
+  font-weight: bold;
+  text-align: center;
+}
+
+.body-title-header-first {
+  display: inline;
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0;
+}
+
+.body-title-header-next {
+  display: inline;
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0;
+}
+
+.chapter-title-header {
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0;
+}
+
+.chapter-title-header-emptyline {
+  display: block;
+  margin: 0.8em 0;
+}
+
+.chapter-title-header-break {
+  display: block;
+}
+
+.chapter-title-header-first {
+  display: inline;
+  text-indent: 0;
+}
+
+.chapter-title-header-next {
+  display: inline;
+  text-indent: 0;
+}
+
+.section-title-header {
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0;
+}
+
+.section-title-header-emptyline {
+  display: block;
+  margin: 0.8em 0;
+}
+
+.section-title-header-break {
+  display: block;
+}
+
+.section-title-header-first {
+  display: inline;
+  text-indent: 0;
+}
+
+.section-title-header-next {
+  display: inline;
+  text-indent: 0;
+}
+
+.toc-item {
+  text-align: left;
+}
+
+.toc-title {
+  font-weight: bold;
+  text-align: center;
+  text-indent: 0;
+}
+
+.toc-title-emptyline {
+  display: block;
+  margin: 0.8em 0;
+}
+
+.toc-title-break {
+  display: block;
+}
+
+.toc-title-first {
+  display: inline;
+  text-indent: 0;
+}
+
+.toc-title-next {
+  display: inline;
+  text-indent: 0;
+}
+
+.section-subtitle {
+  font-weight: bold;
+  margin: 1em 0;
+  page-break-after: avoid;
+  page-break-before: auto;
+  text-align: center;
+  text-indent: 0;
+}
+
+.image {
+  text-align: center;
+  text-indent: 0;
+}
+
+img.image-block {
+  height: auto;
+  max-height: 100%;
+  max-width: 100%;
+}
+
+img.image-inline {
+  max-height: 100%;
+  max-width: 100%;
+  vertical-align: middle;
+}
+
+img.image-vignette {
+  height: auto;
+  width: 100%;
+}
+
+.vignette {
+  margin: 0.5em 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.vignette-book-title-top {
+  margin: 1em 0 0.5em 0;
+}
+
+.vignette-book-title-bottom {
+  margin: 0.5em 0 1em 0;
+}
+
+.vignette-chapter-title-top {
+  margin: 1em 0 0.5em 0;
+}
+
+.vignette-chapter-title-bottom {
+  margin: 0.5em 0 1em 0;
+}
+
+.vignette-chapter-end {
+  margin: 1.5em 0;
+  page-break-before: avoid;
+}
+
+.vignette-section-title-top {
+  margin: 0.8em 0 0.4em 0;
+}
+
+.vignette-section-title-bottom {
+  margin: 0.4em 0 0.8em 0;
+}
+
+.vignette-section-end {
+  margin: 1em 0;
+  page-break-before: avoid;
+}
+
+.epigraph {
+  font-style: italic;
+  margin: 0.4em 0 0.2em 4em;
+  text-align: right;
+}
+
+.epigraph-subtitle {
+  font-style: italic;
+  margin: 0.3em 0;
+  text-align: right;
+  text-indent: 0;
+}
+
+.annotation {
+  margin: 2em 1em 1em 1em;
+}
+
+.annotation-title {
+  font-weight: bold;
+  margin: 1em 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.annotation-subtitle {
+  font-weight: bold;
+  margin: 0.5em 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.poem {
+  font-style: italic;
+  margin: 0 0 0 3em;
+  text-indent: 0;
+}
+
+.poem-title {
+  margin: 1em 0;
+}
+
+.poem-title-first {
+  margin: 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.poem-title-next {
+  margin: 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.poem-subtitle {
+  margin: 0.5em 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.stanza {
+  margin: 0.5em 0;
+}
+
+.stanza-title {
+  margin: 0.5em 0;
+}
+
+.stanza-title-first {
+  margin: 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.stanza-title-next {
+  margin: 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.stanza-subtitle {
+  margin: 0.25em 0;
+  text-align: center;
+  text-indent: 0;
+}
+
+.verse {
+  margin: 0.25em 0 0.25em 2em;
+  text-indent: 0;
+}
+
+.cite {
+  margin: 1em 2em;
+}
+
+blockquote.cite {
+  margin: 1em 2em;
+}
+
+.cite-subtitle {
+  margin: 0.5em 0;
+  text-align: left;
+  text-indent: 0;
+}
+
+.text-author {
+  font-style: italic;
+  font-weight: bold;
+  page-break-before: avoid;
+  text-align: right;
+  text-indent: 0;
+}
+
+.date {
+  margin: 0.5em 0;
+  page-break-before: avoid;
+  text-align: right;
+  text-indent: 0;
+}
+
+.emptyline {
+  display: block;
+  margin: 1em;
+}
+
+.section {
+  margin: 1em 0;
+}
+
+table {
+  border-collapse: collapse;
+  margin: 1em auto;
+  page-break-inside: avoid;
+  width: 100%;
+}
+
+th {
+  background: #ccc;
+  border: 1px solid black;
+  padding: 0.5em;
+}
+
+td {
+  border: 1px solid black;
+  padding: 0.5em;
+}
+
+.footnote {
+  text-indent: 0;
+}
+
+.footnote-title {
+  font-weight: bold;
+  margin: 1em 0 0.5em 0;
+  text-align: left;
+}
+
+.footnote-title-first {
+  margin: 0.2em 0;
+  text-indent: 0;
+}
+
+.footnote-title-next {
+  margin: 0.2em 0;
+  text-indent: 0;
+}
+
+@media fbc-pdf {
+  .footnote {
+    font-size: 70%;
+    line-height: 115%;
+    margin: 0.15em 0;
+  }
+
+  .footnote-title {
+    font-weight: bold;
+    margin: 0.35em 0 0.15em 0;
+    page-break-after: avoid;
+    text-align: left;
+    text-indent: 0;
+  }
+
+  .footnote p {
+    line-height: 115%;
+  }
+
+  .footnote .annotation {
+    line-height: 115%;
+  }
+
+  .footnote .annotation-title {
+    line-height: 115%;
+  }
+
+  .footnote .annotation-subtitle {
+    line-height: 115%;
+  }
+
+  .footnote .epigraph {
+    line-height: 115%;
+  }
+
+  .footnote .epigraph-subtitle {
+    line-height: 115%;
+  }
+
+  .footnote .poem {
+    line-height: 115%;
+  }
+
+  .footnote .poem-title {
+    line-height: 115%;
+  }
+
+  .footnote .poem-title-first {
+    line-height: 115%;
+  }
+
+  .footnote .poem-title-next {
+    line-height: 115%;
+  }
+
+  .footnote .poem-subtitle {
+    line-height: 115%;
+  }
+
+  .footnote .stanza {
+    line-height: 115%;
+  }
+
+  .footnote .stanza-title {
+    line-height: 115%;
+  }
+
+  .footnote .stanza-title-first {
+    line-height: 115%;
+  }
+
+  .footnote .stanza-title-next {
+    line-height: 115%;
+  }
+
+  .footnote .stanza-subtitle {
+    line-height: 115%;
+  }
+
+  .footnote .verse {
+    line-height: 115%;
+  }
+
+  .footnote .cite {
+    line-height: 115%;
+  }
+
+  .footnote .cite-subtitle {
+    line-height: 115%;
+  }
+
+  .footnote .text-author {
+    line-height: 115%;
+  }
+
+  .footnote .date {
+    line-height: 115%;
+  }
+
+  .footnote table {
+    line-height: 115%;
+  }
+
+  .footnote th {
+    line-height: 115%;
+  }
+
+  .footnote td {
+    line-height: 115%;
+  }
+
+  .footnote-title-first {
+    font-size: 70%;
+    line-height: 115%;
+    margin: 0.1em 0;
+    text-indent: 0;
+  }
+
+  .footnote-title-next {
+    font-size: 70%;
+    line-height: 115%;
+    margin: 0.1em 0;
+    text-indent: 0;
+  }
+
+  .footnote .link-backlink {
+    font-size: 1em;
+    line-height: 115%;
+  }
+
+  .footnote-separator {
+    border-top: 0.5pt solid;
+    margin-bottom: 0.25em;
+    margin-top: 0.25em;
+    width: 100%;
+  }
+}
+
+@media not amzn-et {
+  .footnote-more {
+    color: gray;
+    font-weight: bold;
+    text-decoration: none;
+  }
+}
+
+@media amzn-et {
+  .footnote-more {
+    display: none;
+  }
+}
+
+.link-external {
+  text-decoration: underline;
+}
+
+.link-internal {
+  text-decoration: underline;
+}
+
+.link-footnote {
+  font-size: 0.8em;
+  font-style: normal;
+  text-decoration: underline;
+  vertical-align: super;
+}
+
+.link-toc {
+  text-decoration: underline;
+}
+
+.link-backlink {
+  color: gray;
+  font-weight: bold;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.unexpected {
+  text-decoration: line-through;
+}
+

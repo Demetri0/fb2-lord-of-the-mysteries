@@ -20,12 +20,56 @@
 
 ## Контекстные файлы для AI-агентов
 
+Главные файлы для агентов — этот `AGENTS.md` и папка `.agents/` (скиллы в `.agents/skills/`). `CLAUDE.md` и `.claude/skills` только ссылаются на них (импорт и симлинк): новые инструкции и скиллы добавляй сюда, а не в `.claude`.
+
 Чтобы не парсить весь fb2, используй готовые файлы в папке `context/`:
 
 - `context/index.md` — краткое описание каждой из 1432 глав (одно предложение на главу), сгруппировано по томам. Используй для навигации по сюжету и поиска нужной главы.
 - `context/sequences.md` — хронологический лог ключевых событий связанных с Последовательностями (Путями): раскрытие названий уровней (`Reveal`), повышения персонажей (`LevelUP`), вступления в Клуб Таро (`Join`).
 
 `generate_context.py` — скрипт которым эти файлы были сгенерированы (использует `qwen` CLI).
+
+## Скрипты
+
+Все скрипты запускаются из корня репозитория (пути к файлам в них относительные).
+
+| Скрипт | Для чего | Запуск |
+|--------|----------|--------|
+| `extract_chapter.py` | Достать одну главу из fb2 в отдельный XML-файл | `python3 extract_chapter.py 1001 [out.xml]` |
+| `replace_chapter.py` | Вставить отредактированную главу обратно в fb2 | `python3 replace_chapter.py 1001 out.xml [--backup]` |
+| `generate_context.py` | Пересоздать `context/index.md` и `context/sequences.md` | `python3 generate_context.py [--retry]` |
+| `build_read.py` | Собрать веб-версию книги `read/` и `read/book.epub` | `python3 build_read.py путь/к/fbc` |
+| `inject_epub_warning.py` | Пометить старый `epub/` устаревшим | `python3 inject_epub_warning.py` |
+
+Браузерные (не запускаются из консоли):
+
+| Файл | Для чего |
+|------|----------|
+| `reader.html` | Читалка fb2 прямо из репозитория: грузит `Lord Of The Mysteries.fb2` через `fetch`, поиск по главам, помнит главу в `localStorage`. Нужен HTTP-сервер: `python3 -m http.server 8080` |
+| `assets/read-reader.js` | Логика `read/`: место чтения, прогресс, перенос на другое устройство. Копируется в `read/reader.js` |
+| `assets/read-theme.css` | Тема `read/` для чтения. Копируется в `read/theme.css` |
+
+### Как они работают
+
+**`extract_chapter.py` / `replace_chapter.py`** — по глобальному номеру главы находят том по таблице `TOMES` (та же, что в разделе «Тома и диапазоны глав» ниже) и локальный индекс `<section>` внутри тома. `extract` пишет главу в файл (по умолчанию `chapter_N.xml`), `replace` подменяет `<section>` главы содержимым файла и перезаписывает fb2 целиком через ElementTree (после запуска проверь `git diff --stat`: изменения должны быть только в этой главе); с `--backup` перед этим рядом сохраняется копия всего fb2 `Lord Of The Mysteries.backup.<время>.fb2`. Удобная пара для правки одной главы без открытия 29-мегабайтного файла.
+
+**`generate_context.py`** — парсит fb2, по каждой главе вызывает `qwen` с промптом «краткое содержание + события Последовательностей» и собирает ответы в `context/`. Прогресс пишется в `context/.progress`, поэтому прерванный запуск продолжается с места остановки; `--retry` повторяет главы, которые не удалось разобрать. Долгий: одна глава — один вызов LLM.
+
+**`build_read.py`** — генерирует `read/` с нуля:
+1. конвертирует fb2 в epub3 через `fbc` ([fb2cng](https://github.com/rupor-github/fb2cng), v1.9.4) и распаковывает `OEBPS/` в `read/` (папка удаляется и создаётся заново);
+2. кладёт рядом `book.epub` для скачивания, копирует тему и скрипт из `assets/`;
+3. на каждую страницу главы (`indexNNNNN.xhtml`, порядок из `content.opf`) добавляет `lang="ru"`, `noindex`, шрифт Lora, тему, `reader.js` и навигацию «Назад / Оглавление / Вперёд»;
+4. генерирует `read/index.html` — русское оглавление по томам.
+
+**`inject_epub_warning.py`** — в каждую страницу старого `epub/` (вывод Calibre 2023 года) вставляет `noindex` и плашку «Это устаревшая версия» со ссылкой на ту же главу в `read/`. Главы сопоставляются по номеру «Глава N» (названия с тех пор менялись), остальное — по точному заголовку. Блок обёрнут в `<!-- outdated-warning -->`, повторный запуск заменяет его, а не дублирует. Требует собранную `read/`.
+
+**`assets/read-reader.js`** — хранит в `localStorage` (ключ `lotm-read:v1`) абзац у верхнего края экрана и список дочитанных страниц (дочитана = долистал до нижней навигации). В оглавлении рисует «Продолжить чтение», прогресс, отметки ✓ и кнопку «На другом устройстве»: ссылка `?sync=1.<стр>.<абзац>.<дочитана>.<битовая маска>` или QR-код (qrcode-generator 1.4.4 с cdnjs, грузится по клику, с SRI).
+
+### Перегенерация read/ и epub/
+
+Пошаговая инструкция с проверками — скилл `.agents/skills/regenerating-epub/SKILL.md`. Прочитай его перед пересборкой.
+
+Главное: **`read/` целиком генерируется** — не правь файлы в ней, правь `build_read.py` и `assets/read-*`. Вставка или удаление главы в середине fb2 сдвигает имена файлов `indexNNNNN.xhtml` после неё, и сохранённый у читателей прогресс укажет не на ту главу.
 
 ## Доступные утилиты для работы с XML и др.
 
@@ -170,14 +214,16 @@ drwxrwxr-x  4 d3i0 d3i0     4096 Jun 10  2025  .source/
 $tree
 .
 ├── AGENTS.md
-├── assets // Resources used for landing page (index.html)
+├── assets // Resources used for landing page (index.html) and read/
 │   ├── bg.mp4
 │   ├── bg.webm
 │   ├── favicon.png
 │   ├── og-image.jpg
-│   └── poster.webp
+│   ├── poster.webp
+│   ├── read-reader.js // Source of read/reader.js (progress, continue, sync)
+│   └── read-theme.css // Source of read/theme.css (reading theme)
 ├── CHANGELOG.md
-├── epub // Ignore this folder it was attempt to convert fb2 to epub, so it is outdated output not sources
+├── epub // OUTDATED Calibre output (2023), kept online with an "outdated" banner + noindex. Not sources
 │   ├── index.html
 │   ├── index_split_001.html
 │   ├── ...
@@ -195,8 +241,16 @@ $tree
 ├── README.md      // Some information about project
 ├── seq-events     // Attempt to collect information about key events in a book linked to chapters
 ├── Sun Pathway.md // Some notes about namings in Sun Pathway
+├── read/          // GENERATED by build_read.py: current web version + book.epub. Never edit by hand
 ├── reader.html    // Browser-based fb2 reader (serve with python3 -m http.server 8080)
+├── build_read.py          // Builds read/ from the fb2 via fbc
+├── inject_epub_warning.py // Marks epub/ as outdated, links to read/
+├── extract_chapter.py     // Extract one chapter to XML
+├── replace_chapter.py     // Put an edited chapter back into the fb2
 ├── generate_context.py // Script to regenerate context/ files using qwen CLI
+├── .agents/skills/   // MAIN location of agent skills (regenerating-epub: how to regenerate read/ and epub/)
+├── .claude/skills -> ../.agents/skills // symlink for Claude Code, do not put files here
+├── CLAUDE.md      // only imports AGENTS.md (@AGENTS.md), edit AGENTS.md instead
 └── context/
     ├── index.md       // One-line summary per chapter (all 1432 chapters)
     └── sequences.md   // Chronological log of Sequence-related events

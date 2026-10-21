@@ -10,6 +10,16 @@
 1. Привести форматирование диалогов, мыслей, и т.п. к единообразию;
 2. Привести в порядок все наименования, которые часто переименовывались переводчиками.
 
+## Читать онлайн
+
+Актуальная версия книги — [demetri0.github.io/fb2-lord-of-the-mysteries/read/](https://demetri0.github.io/fb2-lord-of-the-mysteries/read/):
+главы по отдельным страницам, тема для долгого чтения (светлая/тёмная по системе, от телефона до телевизора),
+запоминание места, где вы остановились, и общий прогресс. Прогресс можно перенести на другое устройство ссылкой или QR-кодом.
+
+Там же можно [скачать epub](https://demetri0.github.io/fb2-lord-of-the-mysteries/read/book.epub).
+
+Старая веб-версия `/epub/` больше не обновляется: на её страницах стоит предупреждение со ссылкой на ту же главу в новой.
+
 ## Help Wanted
 
 Все желающие помочь — Добро Пожаловать! Буду рад любой помощи.
@@ -264,7 +274,33 @@ Open `~/.config/Code/User/keybindings.json` and add:
 
 ## Convert to different formats
 
-На данный момент предоставляется только формат `fb2`.
+Исходник книги — `fb2`, готовый `epub` лежит в [`read/book.epub`](https://demetri0.github.io/fb2-lord-of-the-mysteries/read/book.epub).
 
-Однако можно конвертировать в другие форматы.
-Например используя [fb2converter](https://github.com/rupor-github/fb2converter)
+В другие форматы удобно конвертировать через [fbc (fb2cng)](https://github.com/rupor-github/fb2cng) —
+наследника устаревшего [fb2converter](https://github.com/rupor-github/fb2converter).
+Он умеет EPUB2/3, KEPUB (Kobo), KFX/AZW8 (Kindle), PDF, TXT и Markdown:
+
+```bash
+fbc convert --to kfx "Lord Of The Mysteries.fb2"
+```
+
+## Скрипты
+
+Подробное описание каждого скрипта — в [AGENTS.md](AGENTS.md#скрипты).
+
+| Скрипт | Для чего |
+|--------|----------|
+| `extract_chapter.py` / `replace_chapter.py` | Достать главу из fb2 в отдельный файл и вставить обратно после правки |
+| `build_read.py` | Собрать веб-версию `read/` и `book.epub` из fb2 |
+| `inject_epub_warning.py` | Пометить старый `epub/` устаревшим со ссылками на `read/` |
+| `generate_context.py` | Пересоздать краткое содержание глав в `context/` (через `qwen` CLI) |
+| `reader.html` | Читалка fb2 прямо из репозитория (`python3 -m http.server 8080`) |
+
+Пересборка онлайн-версии после правок книги:
+
+```bash
+python3 build_read.py ~/bin/fbc
+python3 inject_epub_warning.py
+```
+
+Пошаговая инструкция с проверками — [`.agents/skills/regenerating-epub/SKILL.md`](.agents/skills/regenerating-epub/SKILL.md).

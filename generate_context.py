@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """
 Генерирует context/index.md и context/sequences.md из fb2-файла.
-Использует `claude -p` для анализа каждой главы.
+Использует `qwen` CLI для анализа каждой главы.
 
 Запуск:
     python3 generate_context.py

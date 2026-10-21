@@ -1,0 +1,513 @@
+/*
+  Тема веб-версии книги (read/). Подключается после stylesheet.css от fbc
+  и переопределяет его. Копируется в read/theme.css скриптом build_read.py.
+
+  Стилистика заимствована у index.html: тёмный фон, Lora в заголовках,
+  зеленоватый акцент, кнопки с тонкой рамкой.
+*/
+
+:root {
+  color-scheme: dark light;
+
+  --bg: #242625;
+  --fg: #d9dad6;
+  --fg-muted: #9a9d98;
+  --accent: #a8d8a8;
+  --divider: rgba(255, 255, 255, 0.1);
+  --btn-bg: rgba(255, 255, 255, 0.03);
+  --btn-bg-hover: rgba(255, 255, 255, 0.12);
+  --focus: #cdeccd;
+  --radius: 3px;
+
+  /* Длина строки ~60–70 знаков */
+  --measure: 34em;
+  /* Плавно растёт от телефона (18px) до телевизора (≈28px), уважая настройки браузера */
+  --font-size: clamp(1.125rem, 1rem + 0.45vw, 1.75rem);
+  --gutter: max(16px, 4vw);
+
+  --font-text: "Lora", "PT Serif", Georgia, "Times New Roman", serif;
+  --font-ui: system-ui, -apple-system, "Segoe UI", Roboto, "Noto Sans", sans-serif;
+}
+
+@media (prefers-color-scheme: light) {
+  :root {
+    /* Тёплая «бумага» вместо чистого белого — меньше утомляет глаза */
+    --bg: #f7f4ec;
+    --fg: #2b2a26;
+    --fg-muted: #6b6a63;
+    --accent: #2f6b3b;
+    --divider: rgba(0, 0, 0, 0.12);
+    --btn-bg: rgba(0, 0, 0, 0.02);
+    --btn-bg-hover: rgba(0, 0, 0, 0.07);
+    --focus: #2f6b3b;
+  }
+}
+
+html {
+  background: var(--bg);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  padding: 0 var(--gutter);
+  padding-left: max(var(--gutter), env(safe-area-inset-left));
+  padding-right: max(var(--gutter), env(safe-area-inset-right));
+  padding-bottom: env(safe-area-inset-bottom);
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-text);
+  font-size: var(--font-size);
+  line-height: 1.6;
+  font-kerning: normal;
+  font-variant-ligatures: common-ligatures;
+  text-rendering: optimizeLegibility;
+}
+
+/* ── Текст ─────────────────────────────────────────────── */
+
+.main-body,
+.read-nav,
+.toc {
+  max-width: var(--measure);
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.main-body {
+  padding-bottom: 1em;
+}
+
+/* Книжная вёрстка: абзацный отступ без интервалов между абзацами.
+   Выравнивание по левому краю с переносами — на узких экранах
+   выключка по ширине даёт «реки» пробелов. */
+p {
+  margin: 0;
+  text-align: start;
+  text-indent: 1.5em;
+  hyphens: auto;
+  -webkit-hyphens: auto;
+  /* Не отрывать меньше 3 букв («нарушите-ля»); где не поддерживается — игнорируется */
+  hyphenate-limit-chars: 6 3 3;
+  hanging-punctuation: first;
+  text-wrap: pretty;
+  overflow-wrap: break-word;
+}
+
+em {
+  font-style: italic;
+}
+
+strong {
+  font-weight: 600;
+}
+
+.emptyline {
+  height: 1.6em;
+}
+
+code {
+  font-family: ui-monospace, "Cascadia Mono", "DejaVu Sans Mono", monospace;
+  font-size: 0.85em;
+}
+
+sup {
+  line-height: 0;
+}
+
+/* Маркеры страниц из fb2 не нужны на экране */
+.page-marker {
+  display: none;
+}
+
+/* ── Заголовки ─────────────────────────────────────────── */
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-text);
+  font-style: italic;
+  font-weight: 600;
+  line-height: 1.25;
+  text-align: center;
+  text-wrap: balance;
+  hyphens: manual;
+}
+
+h1 {
+  font-size: 1.6em;
+}
+
+h2 {
+  font-size: 1.35em;
+}
+
+.chapter-title,
+.section-title {
+  margin: 1.5em 0 1.25em;
+}
+
+/* fbc задаёт заголовкам bold через классы */
+.section-title-header,
+.chapter-title-header {
+  font-weight: 600;
+}
+
+/* ── Стихи ─────────────────────────────────────────────── */
+
+.poem {
+  margin: 1.25em 0 1.25em 1.5em;
+}
+
+.stanza + .stanza {
+  margin-top: 0.8em;
+}
+
+.stanza {
+  margin: 0;
+}
+
+/* fbc добавляет стихам ещё 2em слева — вместе с .poem на телефоне слишком много */
+p.verse {
+  margin: 0.15em 0;
+  text-indent: 0;
+  font-style: italic;
+}
+
+/* ── Ссылки ────────────────────────────────────────────── */
+
+a {
+  color: var(--accent);
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.15em;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* Видимый фокус для клавиатуры и пульта телевизора */
+a:focus-visible,
+summary:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+  border-radius: var(--radius);
+}
+
+/* ── Навигация по главам ──────────────────────────────── */
+
+.read-nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 0.75em;
+  margin-top: 1.5em;
+  margin-bottom: 1.5em;
+  font-family: var(--font-ui);
+  font-size: 0.8em;
+}
+
+.read-nav a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 44px;
+  min-width: 44px;
+  padding: 0.5em 1em;
+  box-sizing: border-box;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg);
+  text-decoration: none;
+  transition: background-color 0.15s;
+}
+
+.read-nav a:hover {
+  background: var(--btn-bg-hover);
+}
+
+/* Пустые места под отсутствующие «Назад»/«Вперёд» держат «Оглавление» по центру */
+.read-nav > span {
+  flex: 0 0 5.5em;
+}
+
+/* ── Оглавление (read/index.html) ─────────────────────── */
+
+.toc {
+  padding: 2em 0 3em;
+}
+
+.toc h1 {
+  margin: 0.5em 0 0.25em;
+}
+
+.toc-links {
+  margin: 0 0 2em;
+  font-family: var(--font-ui);
+  font-size: 0.8em;
+  text-align: center;
+  color: var(--fg-muted);
+}
+
+.toc details {
+  border-top: 1px solid var(--divider);
+}
+
+.toc details:last-of-type {
+  border-bottom: 1px solid var(--divider);
+}
+
+.toc summary {
+  padding: 0.6em 0;
+  font-style: italic;
+  font-weight: 600;
+  font-size: 1.1em;
+  cursor: pointer;
+}
+
+.toc summary a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.toc summary a:hover {
+  color: var(--accent);
+}
+
+.toc ol {
+  margin: 0 0 1em;
+  padding: 0;
+  list-style: none;
+}
+
+.toc li a {
+  display: block;
+  padding: 0.3em 0;
+  color: var(--fg);
+  text-decoration: none;
+  line-height: 1.35;
+}
+
+.toc li a:hover {
+  color: var(--accent);
+}
+
+/* Прочитанные главы приглушены и отмечены галочкой */
+.toc li a.is-read {
+  color: var(--fg-muted);
+}
+
+.toc li a.is-read::after {
+  content: " ✓";
+  color: var(--accent);
+}
+
+.toc a.is-current {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+/* ── Продолжить чтение и прогресс (заполняет reader.js) ── */
+
+.resume {
+  margin: 0 0 2em;
+  font-family: var(--font-ui);
+}
+
+.resume-row {
+  display: flex;
+  gap: 0.5em;
+}
+
+.resume-btn {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 0.2em;
+  padding: 0.9em 1.25em;
+  border: 1px solid var(--accent);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg);
+  text-decoration: none;
+  text-align: center;
+  transition: background-color 0.15s;
+}
+
+.resume-btn:hover,
+.share-btn:hover {
+  background: var(--btn-bg-hover);
+}
+
+.share-btn {
+  flex: 0 0 auto;
+  min-width: 44px;
+  padding: 0.5em 0.9em;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg-muted);
+  font: inherit;
+  font-size: 0.75em;
+  line-height: 1.3;
+  cursor: pointer;
+  transition: background-color 0.15s;
+}
+
+.share-btn:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 3px;
+}
+
+.share-status:empty {
+  display: none;
+}
+
+.share-status,
+.resume-notice {
+  margin: 0.5em 0 0;
+  text-indent: 0;
+  text-align: center;
+  font-size: 0.75em;
+  color: var(--accent);
+}
+
+.resume-notice {
+  margin: 0 0 0.75em;
+}
+
+.share-panel {
+  margin-top: 1em;
+  padding: 1em;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  text-align: center;
+}
+
+/* Тёмный код на белом в обеих темах: инвертированные QR читают не все камеры */
+.share-qr {
+  width: min(220px, 60vw);
+  margin: 0 auto;
+  padding: 8px;
+  background: #fff;
+  border-radius: var(--radius);
+  line-height: 0;
+}
+
+.share-qr:empty {
+  display: none;
+}
+
+.share-qr svg {
+  width: 100%;
+  height: auto;
+}
+
+.share-qr svg path,
+.share-qr svg rect[fill="black"] {
+  fill: #000;
+}
+
+.share-hint {
+  margin: 0.75em 0 0.5em;
+  text-indent: 0;
+  font-size: 0.75em;
+  color: var(--fg-muted);
+}
+
+.share-url {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0.5em;
+  border: 1px solid var(--divider);
+  border-radius: var(--radius);
+  background: var(--btn-bg);
+  color: var(--fg);
+  font: inherit;
+  font-size: 0.75em;
+}
+
+.resume-label {
+  font-size: 0.75em;
+  color: var(--accent);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.resume-title {
+  font-family: var(--font-text);
+  font-style: italic;
+  font-weight: 600;
+}
+
+.progress {
+  height: 6px;
+  margin-top: 1.25em;
+  border-radius: 3px;
+  background: var(--divider);
+  overflow: hidden;
+}
+
+.progress-bar {
+  height: 100%;
+  min-width: 2px;
+  background: var(--accent);
+}
+
+.progress-text {
+  margin: 0.5em 0 0;
+  text-indent: 0;
+  text-align: center;
+  font-size: 0.75em;
+  color: var(--fg-muted);
+}
+
+/* ── Устройства ────────────────────────────────────────── */
+
+/* Сенсорные экраны: пункты оглавления крупнее под палец */
+@media (pointer: coarse) {
+  .toc li a {
+    padding: 0.55em 0;
+  }
+}
+
+/* Очень узкие экраны: отступ абзаца меньше, чтобы не съедать строку */
+@media (max-width: 380px) {
+  p {
+    text-indent: 1em;
+  }
+
+  .read-nav {
+    font-size: 0.75em;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .read-nav a,
+  .resume-btn,
+  .share-btn {
+    transition: none;
+  }
+}
+
+@media print {
+  :root {
+    --bg: #fff;
+    --fg: #000;
+    --accent: #000;
+  }
+
+  body {
+    font-size: 11pt;
+    padding: 0;
+  }
+
+  .read-nav {
+    display: none;
+  }
+
+  .main-body {
+    max-width: none;
+  }
+}
