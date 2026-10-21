@@ -25,10 +25,10 @@
     <summary>После переселения в мир пара и машин, главный герой Клейн Моретти всё больше запутывается в своём путешествии по этому странному сверхъестественному миру, желая найти путь назад. В процессе изучения магической медицины, гадания, запечатанных предметов, всего сверхъестественного и отбиваясь от всякой чертовщины, он случайно создал легенду о «Шуте»!</summary>
 
     <link rel="http://opds-spec.org/image"
-          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/read/images/img00001.jpg"
+          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/assets/book/cover.jpg"
           type="image/jpeg"/>
     <link rel="http://opds-spec.org/image/thumbnail"
-          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/read/images/img00001.jpg"
+          href="https://demetri0.github.io/fb2-lord-of-the-mysteries/assets/book/cover-thumb.jpg"
           type="image/jpeg"/>
 
     <link rel="http://opds-spec.org/acquisition"

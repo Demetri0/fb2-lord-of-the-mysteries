@@ -215,6 +215,7 @@ $tree
 .
 ├── AGENTS.md
 ├── assets // Resources used for landing page (index.html) and read/
+│   ├── book/ // Book cover for feed.xml (cover.jpg + cover-thumb.jpg 300px), copied from the fb2
 │   ├── bg.mp4
 │   ├── bg.webm
 │   ├── favicon.png
