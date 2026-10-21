@@ -303,4 +303,4 @@ python3 build_read.py ~/bin/fbc
 python3 inject_epub_warning.py
 ```
 
-Пошаговая инструкция с проверками — [`.claude/skills/regenerating-epub/SKILL.md`](.claude/skills/regenerating-epub/SKILL.md).
+Пошаговая инструкция с проверками — [`.agents/skills/regenerating-epub/SKILL.md`](.agents/skills/regenerating-epub/SKILL.md).

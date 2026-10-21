@@ -20,6 +20,8 @@
 
 ## Контекстные файлы для AI-агентов
 
+Главные файлы для агентов — этот `AGENTS.md` и папка `.agents/` (скиллы в `.agents/skills/`). `CLAUDE.md` и `.claude/skills` только ссылаются на них (импорт и симлинк): новые инструкции и скиллы добавляй сюда, а не в `.claude`.
+
 Чтобы не парсить весь fb2, используй готовые файлы в папке `context/`:
 
 - `context/index.md` — краткое описание каждой из 1432 глав (одно предложение на главу), сгруппировано по томам. Используй для навигации по сюжету и поиска нужной главы.
@@ -65,7 +67,7 @@
 
 ### Перегенерация read/ и epub/
 
-Пошаговая инструкция с проверками — скилл `.claude/skills/regenerating-epub/SKILL.md`. Прочитай его перед пересборкой.
+Пошаговая инструкция с проверками — скилл `.agents/skills/regenerating-epub/SKILL.md`. Прочитай его перед пересборкой.
 
 Главное: **`read/` целиком генерируется** — не правь файлы в ней, правь `build_read.py` и `assets/read-*`. Вставка или удаление главы в середине fb2 сдвигает имена файлов `indexNNNNN.xhtml` после неё, и сохранённый у читателей прогресс укажет не на ту главу.
 
@@ -246,7 +248,9 @@ $tree
 ├── extract_chapter.py     // Extract one chapter to XML
 ├── replace_chapter.py     // Put an edited chapter back into the fb2
 ├── generate_context.py // Script to regenerate context/ files using qwen CLI
-├── .claude/skills/regenerating-epub/ // Skill: how to regenerate read/ and epub/
+├── .agents/skills/   // MAIN location of agent skills (regenerating-epub: how to regenerate read/ and epub/)
+├── .claude/skills -> ../.agents/skills // symlink for Claude Code, do not put files here
+├── CLAUDE.md      // only imports AGENTS.md (@AGENTS.md), edit AGENTS.md instead
 └── context/
     ├── index.md       // One-line summary per chapter (all 1432 chapters)
     └── sequences.md   // Chronological log of Sequence-related events

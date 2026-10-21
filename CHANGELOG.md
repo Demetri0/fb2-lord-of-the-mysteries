@@ -11,7 +11,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/).
 - `build_read.py` — скрипт сборки `read/`
 - `assets/read-reader.js` — запоминание места чтения, кнопка «Продолжить чтение» и прогресс прочитанных глав в оглавлении (localStorage); перенос прогресса на другое устройство ссылкой `?sync=` или QR-кодом
 - `assets/read-theme.css` — тема для чтения `read/`: светлая/тёмная по системе, адаптивный размер от телефона до ТВ, переносы
-- `.claude/skills/regenerating-epub/` — скилл для агентов: пошаговая перегенерация `read/` и `epub/` с проверками
+- `.agents/skills/regenerating-epub/` — скилл для агентов: пошаговая перегенерация `read/` и `epub/` с проверками
 - `AGENTS.md`: индекс всех скриптов — что делает каждый и как работает
 - `inject_epub_warning.py` — скрипт, добавляющий в старый `epub/` предупреждение со ссылкой на ту же главу в `read/`
 
