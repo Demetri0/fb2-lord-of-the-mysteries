@@ -4,6 +4,13 @@
   <meta charset="utf-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1"/>
   <title>Повелитель Тайн — Оглавление</title>
+  <script>
+    // Ссылки на главы относительные: если оглавление открыто как .../read
+    // (без слеша, так делают некоторые серверы, например serve), они ведут мимо папки
+    if (!location.pathname.endsWith("/")) {
+      location.replace(location.pathname.replace(/\/index(\.html)?$/, "") + "/" + location.search + location.hash);
+    }
+  </script>
   <style>
     :root { color-scheme: light dark; }
     body { max-width: 48em; margin: 0 auto; padding: 1em 16px; font-family: sans-serif; line-height: 1.5; }
